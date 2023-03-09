@@ -20,9 +20,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        ResultSet rs = Database.get("select * from users");
-        while (rs.next())
-            System.out.println(rs.getString(2));
         launch();
     }
 }
