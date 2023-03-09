@@ -18,4 +18,10 @@ public class Database {
         ResultSet rs = stmt.executeQuery(sqlString);
         return rs;
     }
+
+    public static PreparedStatement set(String sqlString) throws SQLException {
+        connect();
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        return ps;
+    }
 }
