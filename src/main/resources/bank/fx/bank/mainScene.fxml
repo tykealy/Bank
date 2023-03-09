@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="bank.fx.bank.Controller.mainController">
+<VBox fx:id="vBox" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.mainController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -19,6 +19,6 @@
       </font>
    </Label>
    <TextField fx:id="idLabel" promptText="Enter id" />
-    <Button fx:id="loginBtn" onAction="#login" text="To Acc (Skip Authenticate for Now)" />
+    <Button onAction="#login" text="To Acc (Skip Authenticate for Now)" />
    <Button mnemonicParsing="false" onAction="#exit" text="Exit" />
 </VBox>
