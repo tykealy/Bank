@@ -7,5 +7,6 @@ module bank.fx.bank {
 
     exports bank.fx.bank;
     exports bank.fx.bank.Controller;
+
     opens bank.fx.bank.Controller to javafx.fxml;
 }
