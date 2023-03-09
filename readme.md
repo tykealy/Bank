@@ -10,7 +10,7 @@ create a table name "users"
 
 ```mysql
 create table users(
-user_id int auto_increment primarykey,
+user_id int auto_increment,
 name varchar(50),
 email varchar(100),
 primary key(user_id)
