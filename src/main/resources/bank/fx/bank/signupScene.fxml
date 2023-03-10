@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="380.0" prefWidth="602.0" styleClass="main-panel" stylesheets="@signup.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.signup_controller">
+<AnchorPane prefHeight="380.0" prefWidth="602.0" styleClass="main-panel" stylesheets="@CSS/signup.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.signupController">
    <children>
-      <Pane prefHeight="401.0" prefWidth="265.0" styleClass="logo-panel" stylesheets="@signup.css">
+      <Pane prefHeight="401.0" prefWidth="265.0" styleClass="logo-panel" stylesheets="@CSS/signup.css">
          <children>
             <ImageView fitHeight="93.0" fitWidth="161.0" layoutX="52.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -21,11 +21,11 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="265.0" prefHeight="401.0" prefWidth="383.0" styleClass="main-panel" stylesheets="@signup.css">
+      <Pane layoutX="265.0" prefHeight="401.0" prefWidth="383.0" styleClass="main-panel" stylesheets="@CSS/signup.css">
          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="88.0" text="Sign up">
+            <Label layoutX="46.0" layoutY="14.0" prefHeight="29.0" prefWidth="98.0" text="Sign up">
                <font>
-                  <Font name="Calibri Bold" size="15.0" />
+                  <Font name="Calibri Bold" size="20.0" />
                </font>
             </Label>
             <TextField fx:id="firstNameField" layoutX="47.0" layoutY="61.0" prefHeight="25.0" prefWidth="129.0" promptText="Firstname" />
@@ -35,12 +35,12 @@
             <PasswordField fx:id="passwordField" layoutX="46.0" layoutY="215.0" prefHeight="25.0" prefWidth="292.0" promptText="Password should be more then 8 characters" />
             <TextField fx:id="ageField" layoutX="47.0" layoutY="102.0" prefHeight="25.0" prefWidth="129.0" promptText="Age" />
             <PasswordField fx:id="confirmPasswordField" layoutX="46.0" layoutY="255.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password" />
-            <Button fx:id="register" layoutX="79.0" layoutY="301.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="230.0" styleClass="submit-btn" stylesheets="@signup.css" text="Register" textFill="#f8f4f4">
+            <Button fx:id="register" layoutX="79.0" layoutY="301.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="230.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Register" textFill="#f8f4f4">
                <font>
                   <Font name="Khmer UI Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="toLogin" layoutX="100.0" layoutY="338.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Already have an account ? " textFill="#1342d1" underline="true">
+            <Button onAction="#toLogin" layoutX="100.0" layoutY="338.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-cursor: hand;" text="Already have an account ? " textFill="#1342d1" underline="true">
                <font>
                   <Font size="14.0" />
                </font></Button>
