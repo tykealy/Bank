@@ -12,10 +12,35 @@ public class Database {
         }
     }
 
+    // public static ResultSet get(String sqlString) throws SQLException {
+    // connect();
+    // Statement stmt = con.createStatement();
+    // ResultSet rs = stmt.executeQuery(sqlString);
+    // return rs;
+    // }
+
+    public static PreparedStatement create(String sqlString) throws SQLException {
+        connect();
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        return ps;
+    }
+
+    public static PreparedStatement update(String sqlString) throws SQLException {
+        connect();
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        return ps;
+    }
+
+    public static PreparedStatement destroy(String sqlString) throws SQLException {
+        connect();
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        return ps;
+    }
+
     public static ResultSet get(String sqlString) throws SQLException {
         connect();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(sqlString);
+        PreparedStatement ps = con.prepareStatement(sqlString);
+        ResultSet rs = ps.executeQuery();
         return rs;
     }
 
