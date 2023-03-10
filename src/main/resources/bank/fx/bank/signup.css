@@ -1,0 +1,12 @@
+.logo-panel{
+    -fx-background-color:  linear-gradient(from 25% 25% to 100% 100%, rgba(74,141,222,1) 21%, rgba(37,87,218,1) 39%);
+}
+.submit-btn{
+    -fx-background-color: rgb(21,123,241);
+}
+.to-login-btn{
+    -fx-background-color: white;
+}
+.main-panel{
+    -fx-background-color: white;
+}
