@@ -24,5 +24,4 @@ public class Database {
         PreparedStatement ps = con.prepareStatement(sqlString);
         return ps;
     }
-
 }
