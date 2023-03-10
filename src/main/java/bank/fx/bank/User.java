@@ -20,11 +20,10 @@ public class User {
             stmt.setString(5, idCard);
             stmt.setString(6, phone);
             stmt.setString(7, email);
-            stmt.setString(8, password);
+            stmt.setString(8, Encryption.encrypt(password));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
 }

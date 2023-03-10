@@ -2,6 +2,8 @@ module bank.fx.bank {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.security.sasl;
+    requires java.security.jgss;
 
     opens bank.fx.bank to javafx.fxml;
 
