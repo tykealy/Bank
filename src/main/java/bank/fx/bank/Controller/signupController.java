@@ -2,16 +2,23 @@ package bank.fx.bank.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class signup_controller {
-    @FXML
-    private TextField firstNameField,lastNameField,ageField,nationalityField,cardIdField,phoneField,emailField;
-    @FXML
-    private PasswordField passwordField,comfirmPasswordField;
+import java.io.IOException;
 
-    public void signUp(ActionEvent event){
+public class signupController extends sceneController{
+    @FXML
+    private TextField firstNameField, lastNameField, ageField, nationalityField, cardIdField, phoneField, emailField;
+    @FXML
+    private PasswordField passwordField, comfirmPasswordField;
+
+    public void toLogin(ActionEvent event) throws IOException {
+        super.switchToLoginScene(event);
+    }
+
+    public void signUp(ActionEvent event) throws IOException {
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         int age = Integer.parseInt(ageField.getText());
@@ -30,5 +37,6 @@ public class signup_controller {
                 "\nEmail: " + email +
                 "\nPassword: " +password
         );
+        super.switchToMainScene(event);
     }
 }
