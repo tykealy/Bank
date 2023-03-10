@@ -9,18 +9,30 @@ create database bank_management;
 create a table name "users"
 
 ```mysql
+
 create table users(
-user_id int auto_increment,
-name varchar(50),
+id int auto_increment,
+first_name varchar(50),
+last_name varchar(100),
+age int,
+nationality varchar(100),
+id_card varchar(50),
+phone varchar(50),
 email varchar(100),
-primary key(user_id)
-) ;
+password varchar(255),
+is_active boolean default 1,
+is_admin boolean default 0,
+primary key (id)
+);
+
 ```
 
 dump in some data
 
 ```mysql
-INSERT INTO `bank_management`.`users` (`name`, `email`) VALUES ('pichey', 'tykeaboyloy@gmail.com');
+
+INSERT INTO `bank_management`.`users` (`first_name`, `last_name`, `age`, `nationality`, `id_card`, `phone`, `email`, `password`) VALUES ('Tykea', 'Ly', 19, 'Cambodian', '1244234', '4534525', 'Tykeaboyloy@gmail.com', '123456789');
+
 ```
 
 create a table name "account"
