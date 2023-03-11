@@ -15,8 +15,7 @@ public class Encryption {
     private static final int iterations = 10000;
     private static final int keylength = 256;
 
-    public static String encrypt(String password) {
-        String saltvalue = Encryption.getSaltvalue(30);
+    public static String encrypt(String password, String saltvalue) {
         String encryptedpassword = Encryption.generateSecurePassword(password, saltvalue);
         return encryptedpassword;
     }
