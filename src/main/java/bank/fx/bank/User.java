@@ -10,9 +10,10 @@ public class User {
     public void create() {
         String sqlString = """
                 INSERT INTO `bank_management`.`users`
-                (`first_name`, `last_name`, `age`, `nationality`, `id_card`, `phone`, `email`, `password`)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                (`first_name`, `last_name`, `age`, `nationality`, `id_card`, `phone`, `email`, `password`,`password_salt`)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
                                 """;
+        String salt = Encryption.getSaltvalue(30);
         try {
             PreparedStatement stmt = Database.create(sqlString);
             stmt.setString(1, this.firstName);
@@ -22,7 +23,8 @@ public class User {
             stmt.setString(5, this.idCard);
             stmt.setString(6, this.phone);
             stmt.setString(7, this.email);
-            stmt.setString(8, Encryption.encrypt(this.password));
+            stmt.setString(8, Encryption.encrypt(this.password, salt));
+            stmt.setString(9, salt);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
