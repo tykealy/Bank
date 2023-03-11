@@ -13,12 +13,11 @@ public class Database {
 
     }
 
-    // public static ResultSet get(String sqlString) throws SQLException {
-    // connect();
-    // Statement stmt = con.createStatement();
-    // ResultSet rs = stmt.executeQuery(sqlString);
-    // return rs;
-    // }
+     public static ResultSet grab(String sqlString) throws SQLException {
+         connect();
+         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         return stmt.executeQuery(sqlString);
+     }
 
     public static PreparedStatement create(String sqlString) throws SQLException {
         connect();

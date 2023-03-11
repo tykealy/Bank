@@ -19,15 +19,15 @@ public class sceneController {
     public void switchToMainScene(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Main.class.getResource("mainScene.fxml"));
         stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
-        scene = new Scene(root, 600, 500);
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     public void switchToAccScene(ActionEvent event, Parent root) throws IOException {
-//        root = FXMLLoader.load(Main.class.getResource("accountScene.fxml"));
+//        root = FXMLLoader.load(Main.class.getResource("testAccountScene.fxml"));
         stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
-        scene = new Scene(root, 600, 500);
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
