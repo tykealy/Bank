@@ -2,6 +2,8 @@ package bank.fx.bank.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -9,9 +11,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginFormController extends sceneController{
+import bank.fx.bank.CurrentUser;
+import bank.fx.bank.Database;
+import bank.fx.bank.Encryption;
+import bank.fx.bank.Main;
+import bank.fx.bank.User;
+
+public class LoginFormController extends sceneController {
 
     @FXML
     private TextField accountNumber;
@@ -31,20 +40,38 @@ public class LoginFormController extends sceneController{
     @FXML
     private PasswordField txtPassword;
 
-
     @FXML
-    void SignIn(ActionEvent event){
-        System.out.println(accountNumber.getText());
-        System.out.println(txtPassword.getText());
+    void SignIn(ActionEvent event) {
+        String account_number = accountNumber.getText();
+        String user_password = txtPassword.getText();
 
-        if (accountNumber.getText().isBlank() == false && txtPassword.getText().isBlank() == false){
-            lblErrors.setText("You try to login!");
-         //   invalidateLogin();
-        }
-        else {
+        if (accountNumber.getText().isBlank() == false && txtPassword.getText().isBlank() == false) {
+            try {
+                ResultSet rs = Database
+                        .get("select user_id from account where account_number =  '" + account_number + "';");
+
+                rs.absolute(1);
+                int user_id = rs.getInt(1);
+                rs = Database.get(
+                        "select * from users where id = " + user_id + ";");
+                rs.absolute(1);
+                String password = rs.getString("password");
+                String password_salt = rs.getString("password_salt");
+
+                if (Encryption.verifyUserPassword(user_password, password, password_salt)) {
+                    FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
+                    Parent root = loader.load();
+                    CurrentUser.setCurrentUser(rs);
+                    // accountController accountCtrl = loader.getController();
+                    // accountCtrl.setUserIdLabel(full_name);
+                    super.switchToAccScene(event, root);
+                    System.out.println(CurrentUser.firstName + CurrentUser.lastName);
+                }
+            } catch (Exception e) {
+            }
+        } else {
             lblErrors.setText("Please enter your account number and password!");
         }
-
 
     }
 
@@ -54,18 +81,12 @@ public class LoginFormController extends sceneController{
         stage.close();
     }
 
-    public void invalidateLogin(){
+    public void invalidateLogin() {
 
     }
+
     public void switchToRegister(ActionEvent event) throws IOException {
         super.switchToRegisterScene(event);
     }
 
 }
-
-
-
-
-
-
-

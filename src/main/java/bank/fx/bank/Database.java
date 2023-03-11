@@ -13,11 +13,11 @@ public class Database {
 
     }
 
-     public static ResultSet grab(String sqlString) throws SQLException {
-         connect();
-         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-         return stmt.executeQuery(sqlString);
-     }
+    public static ResultSet grab(String sqlString) throws SQLException {
+        connect();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        return stmt.executeQuery(sqlString);
+    }
 
     public static PreparedStatement create(String sqlString) throws SQLException {
         connect();
@@ -39,8 +39,8 @@ public class Database {
 
     public static ResultSet get(String sqlString) throws SQLException {
         connect();
-        PreparedStatement ps = con.prepareStatement(sqlString);
-        ResultSet rs = ps.executeQuery();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery(sqlString);
         return rs;
     }
 
@@ -50,5 +50,4 @@ public class Database {
         return ps;
     }
 
-    }
-
+}
