@@ -10,43 +10,87 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="380.0" prefWidth="602.0" styleClass="main-panel" stylesheets="@CSS/signup.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.signupController">
+<AnchorPane prefHeight="510.0" prefWidth="860.0" styleClass="main-panel" stylesheets="@CSS/signup.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.signupController">
    <children>
-      <Pane prefHeight="401.0" prefWidth="265.0" styleClass="logo-panel" stylesheets="@CSS/signup.css">
+      <Pane prefHeight="510.0" prefWidth="406.0" styleClass="logo-panel" stylesheets="@CSS/signup.css">
          <children>
-            <ImageView fitHeight="93.0" fitWidth="161.0" layoutX="52.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="213.0" fitWidth="245.0" layoutX="76.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logo.png" />
-               </image>
-            </ImageView>
+               </image></ImageView>
          </children>
       </Pane>
-      <Pane layoutX="265.0" prefHeight="401.0" prefWidth="383.0" styleClass="main-panel" stylesheets="@CSS/signup.css">
+      <Pane layoutX="409.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="451.0" styleClass="main-panel" stylesheets="@CSS/signup.css">
          <children>
-            <Label layoutX="46.0" layoutY="14.0" prefHeight="29.0" prefWidth="98.0" text="Sign up">
+            <Label alignment="CENTER" layoutX="176.0" layoutY="50.0" prefHeight="29.0" prefWidth="98.0" text="Sign up">
                <font>
-                  <Font name="Calibri Bold" size="20.0" />
+                  <Font name="Calibri Bold" size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="firstNameField" layoutX="47.0" layoutY="61.0" prefHeight="25.0" prefWidth="129.0" promptText="Firstname" />
-            <TextField fx:id="lastNameField" layoutX="211.0" layoutY="61.0" prefHeight="25.0" prefWidth="129.0" promptText="Lastname" />
-            <TextField fx:id="nationalityField" layoutX="211.0" layoutY="102.0" prefHeight="25.0" prefWidth="129.0" promptText="Nationality" />
-            <TextField fx:id="cardIdField" layoutX="47.0" layoutY="138.0" prefHeight="25.0" prefWidth="128.0" promptText="Card ID" />
-            <PasswordField fx:id="passwordField" layoutX="46.0" layoutY="215.0" prefHeight="25.0" prefWidth="292.0" promptText="Password should be more then 8 characters" />
-            <TextField fx:id="ageField" layoutX="47.0" layoutY="102.0" prefHeight="25.0" prefWidth="129.0" promptText="Age" />
-            <PasswordField fx:id="confirmPasswordField" layoutX="46.0" layoutY="255.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password" />
-            <Button fx:id="register" layoutX="79.0" layoutY="301.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="230.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Register" textFill="#f8f4f4">
+            <TextField fx:id="firstNameField" layoutX="79.0" layoutY="120.0" prefHeight="25.0" prefWidth="137.0" promptText="Firstname" />
+            <TextField fx:id="lastNameField" layoutX="235.0" layoutY="120.0" prefHeight="25.0" prefWidth="137.0" promptText="Lastname" />
+            <TextField fx:id="nationalityField" layoutX="235.0" layoutY="161.0" prefHeight="25.0" prefWidth="137.0" promptText="Nationality" />
+            <TextField fx:id="cardIdField" layoutX="79.0" layoutY="200.0" prefHeight="25.0" prefWidth="137.0" promptText="Card ID" />
+            <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="281.0" prefHeight="25.0" prefWidth="292.0" promptText="Password should be more then 8 characters" />
+            <TextField fx:id="ageField" layoutX="79.0" layoutY="161.0" prefHeight="25.0" prefWidth="137.0" promptText="Age" />
+            <PasswordField fx:id="confirmPasswordField" layoutX="80.0" layoutY="323.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password" />
+            <Button fx:id="register" layoutX="111.0" layoutY="364.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="230.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Register" textFill="#f8f4f4">
                <font>
                   <Font name="Khmer UI Bold" size="12.0" />
                </font>
             </Button>
-            <Button onAction="#toLogin" layoutX="100.0" layoutY="338.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-cursor: hand;" text="Already have an account ? " textFill="#1342d1" underline="true">
+            <Button layoutX="133.0" layoutY="405.0" mnemonicParsing="false" onAction="#toLogin" style="-fx-background-color: white; -fx-cursor: hand;" text="Already have an account ? " textFill="#1342d1" underline="true">
                <font>
                   <Font size="14.0" />
-               </font></Button>
-            <TextField fx:id="phoneField" layoutX="212.0" layoutY="138.0" prefHeight="25.0" prefWidth="128.0" promptText="Phone No." />
-            <TextField layoutX="46.0" layoutY="176.0" />
-            <TextField fx:id="emailField" layoutX="46.0" layoutY="176.0" prefHeight="25.0" prefWidth="292.0" promptText="Email" />
+               </font>
+            </Button>
+            <TextField fx:id="phoneField" layoutX="235.0" layoutY="200.0" prefHeight="25.0" prefWidth="137.0" promptText="Phone No." />
+            <TextField fx:id="emailField" layoutX="79.0" layoutY="240.0" prefHeight="25.0" prefWidth="292.0" promptText="Email" />
+            <Label fx:id="errorFirstName" layoutX="80.0" layoutY="145.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorLastname" layoutX="235.0" layoutY="145.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorAge" layoutX="80.0" layoutY="186.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorNationality" layoutX="235.0" layoutY="186.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorCardId" layoutX="80.0" layoutY="225.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorPhone" layoutX="235.0" layoutY="225.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorEmail" layoutX="80.0" layoutY="265.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorPasswordConfirm" layoutX="80.0" layoutY="348.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorPassword" layoutX="80.0" layoutY="306.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

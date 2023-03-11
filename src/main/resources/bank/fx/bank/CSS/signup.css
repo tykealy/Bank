@@ -10,3 +10,6 @@
 .main-panel{
     -fx-background-color: white;
 }
+.error-text{
+    -fx-text-fill: red;
+}
