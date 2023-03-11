@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class User {
-    public static void create(String firstname, String lastname, int age, String nationality, String idCard,
-            String phone, String email, String password) {
+    public String firstName, lastName, nationality, idCard, phone, email, password, password_salt;
+    public int id, age;
+
+    public void create() {
         String sqlString = """
                 INSERT INTO `bank_management`.`users`
                 (`first_name`, `last_name`, `age`, `nationality`, `id_card`, `phone`, `email`, `password`)
@@ -13,14 +15,14 @@ public class User {
                                 """;
         try {
             PreparedStatement stmt = Database.create(sqlString);
-            stmt.setString(1, firstname);
-            stmt.setString(2, lastname);
-            stmt.setInt(3, age);
-            stmt.setString(4, nationality);
-            stmt.setString(5, idCard);
-            stmt.setString(6, phone);
-            stmt.setString(7, email);
-            stmt.setString(8, Encryption.encrypt(password));
+            stmt.setString(1, this.firstName);
+            stmt.setString(2, this.lastName);
+            stmt.setInt(3, this.age);
+            stmt.setString(4, this.nationality);
+            stmt.setString(5, this.idCard);
+            stmt.setString(6, this.phone);
+            stmt.setString(7, this.email);
+            stmt.setString(8, Encryption.encrypt(this.password));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

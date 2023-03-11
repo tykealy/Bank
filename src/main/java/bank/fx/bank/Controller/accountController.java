@@ -19,20 +19,22 @@ import java.time.temporal.ChronoUnit;
 
 public class accountController extends sceneController {
     @FXML
-    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountInfo;
+    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance, accountType;
     @FXML
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     protected int userId;
+    @FXML
     private double balance = 0, amt = 0, result = 0;
     private ResultSet rs;
     private PreparedStatement ps;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-    public void setUserIdLabel(String id) {
+    public void setUserIdLabel(String id) throws SQLException {
         alert.setContentText("Please confirm the transaction");
         userIdLabel.setText(id);
         userId = Integer.parseInt(userIdLabel.getText());
         userIdLabel.setText("");
+        displayInfo();
     }
 
     @FXML
@@ -41,11 +43,9 @@ public class accountController extends sceneController {
                 "from account " +
                 "where user_id=" + userId);
         while (rs.next()) {
-            accountInfo.setText(
-                "User: " + rs.getString(1) +
-                " | Balance: $" + rs.getDouble(2) +
-                " | Type: " + rs.getString(3)
-            );
+            accountName.setText(rs.getString(1));
+            accountBalance.setText(" $"+String.valueOf(rs.getDouble(2)));
+            accountType.setText(rs.getString(3));
         }
     }
 
