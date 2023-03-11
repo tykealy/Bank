@@ -33,9 +33,10 @@ public class sceneController {
     }
 
     public void switchToLoginScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Main.class.getResource("testScene.fxml"));
+        System.out.println("login");
+        root = FXMLLoader.load(Main.class.getResource("loginScene.fxml"));
         stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
-        scene = new Scene(root, 600, 500);
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

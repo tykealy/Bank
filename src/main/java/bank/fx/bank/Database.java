@@ -10,6 +10,7 @@ public class Database {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/bank_management", "root", "0603");
         }
+
     }
 
     // public static ResultSet get(String sqlString) throws SQLException {
@@ -49,4 +50,6 @@ public class Database {
         PreparedStatement ps = con.prepareStatement(sqlString);
         return ps;
     }
-}
+
+    }
+
