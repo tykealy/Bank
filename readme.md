@@ -44,7 +44,8 @@ user_id int,
 account_name varchar(50),
 account_type varchar(50),
 balance double,
-foreign key (user_id) references users(user_id),
+is_active boolean default true,
+foreign key (user_id) references users(id),
 primary key(account_number)
 );
 ```
@@ -61,10 +62,12 @@ create a table name "deposit"
 create table deposit(
 deposit_id int auto_increment,
 user_id int,
-amount double default 0,
+account_no int,
+amount double not null default 0,
 date date,
 time time,
-foreign key (user_id) references users(user_id),
+foreign key (user_id) references users(id),
+foreign key (account_no) references account(account_number),
 primary key(deposit_id)
 );
 ```
@@ -81,10 +84,12 @@ create a table name "withdraw"
 create table withdraw(
 withdrawn_id int auto_increment,
 user_id int,
-amount double default 0,
+account_no int,
+amount double not null default 0,
 date date,
 time time,
-foreign key (user_id) references users(user_id),
+foreign key (user_id) references users(id),
+foreign key (account_no) references account(account_number),
 primary key(withdrawn_id)
 );
 ```
@@ -101,11 +106,14 @@ create a table name "transfer"
 create table transfer(
 transfer_id int auto_increment,
 user_id int,
-amount double default 0,
+account_no int,
+amount double not null default 0,
+message text,
 receiver_id int,
 date date,
 time time,
-foreign key (user_id) references users(user_id),
+foreign key (user_id) references users(id),
+foreign key (account_no) references account(account_number),
 primary key(transfer_id)
 );
 ```
