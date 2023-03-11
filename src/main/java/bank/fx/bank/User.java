@@ -1,11 +1,12 @@
 package bank.fx.bank;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-    public String firstName, lastName, nationality, idCard, phone, email, password, password_salt;
-    public int id, age;
+    public static String firstName, lastName, nationality, idCard, phone, email, password, password_salt;
+    public static int id, age;
 
     public void create() {
         String sqlString = """
