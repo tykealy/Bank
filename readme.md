@@ -22,6 +22,7 @@ email varchar(100),
 password varchar(255),
 is_active boolean default 1,
 is_admin boolean default 0,
+password_salt varchar(255),
 primary key (id)
 );
 
