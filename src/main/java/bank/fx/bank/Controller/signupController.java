@@ -48,7 +48,7 @@ public class signupController extends sceneController {
                 "SELECT id FROM users " +
                 "where first_name=\"" + user.firstName + "\" and last_name=\"" + user.lastName + "\" " +
                 "and email=\"" + user.email + "\"");
-        while (rs.next()) {
+        if (rs.next()) {
             id = rs.getInt(1);
         }
         String sqlString = """

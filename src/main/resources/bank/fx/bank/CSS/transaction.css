@@ -1,0 +1,16 @@
+.list-cell {
+    -fx-padding: 15px;
+    -fx-background-color: transparent, -fx-background;
+    -fx-background-insets: 0px, 5px;
+    -fx-background-radius: 10;
+}
+
+.list-cell:empty {
+    -fx-padding: 10px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+}
+
+.withdraw {
+
+}
