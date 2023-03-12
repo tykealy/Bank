@@ -6,7 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class DashbaordWithdrawController {
+public class DashboardWithdrawController {
 
     @FXML
     private DatePicker DateBtn;
@@ -32,7 +32,4 @@ public class DashbaordWithdrawController {
     @FXML
     private Button withdrawBtn;
 
-
-
 }
-

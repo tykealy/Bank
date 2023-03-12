@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="510.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/19"
    xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="bank.fx.bank.Controller.DashbaordDepositController">
+   fx:controller="bank.fx.bank.Controller.DashboardDepositController">
    <children>
       <Pane layoutX="179.0" layoutY="20.0" prefHeight="465.0" prefWidth="593.0">
          <children>
