@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.ResultSet;
 
+import bank.fx.bank.Account;
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Encryption;
@@ -60,8 +62,6 @@ public class LoginFormController extends sceneController {
                     FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
                     Parent root = loader.load();
                     CurrentUser.setCurrentUser(rs);
-                    // accountController accountCtrl = loader.getController();
-                    // accountCtrl.setUserIdLabel(full_name);
                     super.switchToAccScene(event, root);
                 }
             } catch (Exception e) {
