@@ -1,56 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="860.0" style="-fx-background-color: #fff;" stylesheets="@CSS/signup.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.LoginFormController">
-    <AnchorPane prefHeight="503.0" prefWidth="382.0" styleClass="logo-panel" stylesheets="@CSS/signup.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <ImageView fitHeight="213.0" fitWidth="245.0" layoutX="70.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;"
+    xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="bank.fx.bank.Controller.loginController">
+    <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-color: #0C39FF;"
+        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" layoutX="95.0" layoutY="252.0" prefHeight="23.0" prefWidth="173.0"
+            text="Bank Name" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI" size="31.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="79.0" layoutY="299.0" prefHeight="23.0" prefWidth="205.0"
+            text="  Bank System" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI" size="12.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="105.0" fitWidth="137.0" layoutX="113.0" layoutY="162.0"
+            pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/logo.png" />
             </image>
         </ImageView>
     </AnchorPane>
-    <Pane layoutX="474.0" layoutY="39.0" prefHeight="426.0" prefWidth="307.0" AnchorPane.bottomAnchor="38.0" AnchorPane.topAnchor="39.0">
+    <Pane layoutX="479.0" layoutY="101.0" prefHeight="359.0" prefWidth="307.0"
+        AnchorPane.bottomAnchor="43.0" AnchorPane.topAnchor="101.0">
         <children>
-            <TextField fx:id="accountNumber" layoutX="17.0" layoutY="139.0" prefHeight="34.0" prefWidth="275.0" promptText="Account Number" />
-            <PasswordField fx:id="txtPassword" layoutX="17.0" layoutY="196.0" prefHeight="34.0" prefWidth="275.0" promptText="Password" />
-            <Button fx:id="btnSignin" layoutX="154.0" layoutY="261.0" mnemonicParsing="false" onAction="#SignIn" prefHeight="34.0" prefWidth="137.0" style="-fx-background-color: #0C39FF;" text="Sign in" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-            </Button>
-            <Label fx:id="btnForgot" alignment="CENTER" layoutX="28.0" layoutY="267.0" prefHeight="23.0" prefWidth="102.0" text=" Forget Password ?" textFill="#5383ff" underline="true">
-                <font>
-                    <Font name="Segoe UI" size="12.0" />
-                </font>
-            </Label>
-            <Button layoutX="165.0" layoutY="327.0" mnemonicParsing="false" onAction="#switchToRegister" prefHeight="34.0" prefWidth="96.0" styleClass="to-login-btn" stylesheets="@CSS/signup.css" text="Sign up" textFill="#1342d1" underline="true" />
-            <Separator layoutX="18.0" layoutY="316.0" prefHeight="7.0" prefWidth="275.0" />
-            <Label alignment="CENTER" layoutX="138.0" layoutY="305.0" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #fff;" text="Or" textFill="#5b5a5a">
+            <TextField fx:id="accountNumber" layoutX="8.0" layoutY="73.0" prefHeight="34.0"
+                prefWidth="275.0" promptText="Account Number" />
+            <PasswordField fx:id="txtPassword" layoutX="8.0" layoutY="146.0" prefHeight="34.0"
+                prefWidth="275.0" promptText="Password" />
+            <Button fx:id="btnSignin" layoutX="142.0" layoutY="210.0" mnemonicParsing="false"
+                onAction="#SignIn" prefHeight="34.0" prefWidth="137.0"
+                style="-fx-background-color: #0C39FF;" text="Sign in" textFill="WHITE" />
+            <Label fx:id="btnForgot" alignment="CENTER" layoutX="8.0" layoutY="216.0"
+                prefHeight="23.0" prefWidth="102.0" text=" Forget Password ?" textFill="#5383ff"
+                underline="true">
                 <font>
                     <Font name="Segoe UI" size="12.0" />
                 </font>
             </Label>
-            <Label fx:id="lblErrors" alignment="CENTER" layoutX="16.0" layoutY="105.0" prefHeight="23.0" prefWidth="275.0" textFill="#e44335">
+            <Button fx:id="btnSignup" layoutX="4.0" layoutY="296.0" mnemonicParsing="false"
+                onAction="#btnSignup" prefHeight="34.0" prefWidth="275.0"
+                style="-fx-background-color: #0C39FF;" text="Sign up" textFill="WHITE" />
+            <Separator layoutY="270.0" prefHeight="7.0" prefWidth="275.0" />
+            <Label alignment="CENTER" layoutX="122.0" layoutY="262.0" prefHeight="23.0"
+                prefWidth="31.0" style="-fx-background-color: #fff;" text="Or" textFill="#5b5a5a">
+                <font>
+                    <Font name="Segoe UI" size="12.0" />
+                </font>
+            </Label>
+            <Label fx:id="lblErrors" alignment="CENTER" layoutX="4.0" layoutY="32.0"
+                prefHeight="23.0" prefWidth="275.0" textFill="#e44335">
                 <font>
                     <Font name="Segoe UI" size="11.0" />
                 </font>
             </Label>
-            <Label alignment="CENTER" layoutX="96.0" layoutY="54.0" prefHeight="40.0" prefWidth="102.0" text="Login">
-                <font>
-                    <Font name="System Bold" size="28.0" />
-                </font>
-            </Label>
-            <Label layoutX="56.0" layoutY="336.0" prefHeight="17.0" prefWidth="149.0" text="Don't have an account ?" />
         </children>
     </Pane>
+    <Label layoutX="415.0" layoutY="91.0" prefHeight="40.0" prefWidth="102.0" text="Sign in ">
+        <font>
+            <Font name="System Bold" size="28.0" />
+        </font>
+    </Label>
 </AnchorPane>
