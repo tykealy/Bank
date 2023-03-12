@@ -22,7 +22,8 @@ public class accountController extends sceneController implements Initializable 
     @FXML
     public ChoiceBox<String> transactionType, accountSwitch;
     @FXML
-    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance, accountType;
+    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance,
+            accountType;
     @FXML
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     @FXML
@@ -83,7 +84,7 @@ public class accountController extends sceneController implements Initializable 
                     depositLabel.setTextFill(Color.GREEN);
                     depositLabel.setText("Deposit Successfully");
                     depositAmount.setText("");
-                    //add to deposit table
+                    // add to deposit table
                     ps = Database.set("insert into deposit(user_id, amount, date, time) " +
                             "values (" + userId + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
                             LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");

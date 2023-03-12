@@ -52,4 +52,5 @@ public class sceneController {
         stage = (Stage) pane.getScene().getWindow();
         stage.close();
     }
+
 }
