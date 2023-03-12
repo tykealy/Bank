@@ -12,9 +12,9 @@
 
 <AnchorPane prefHeight="510.0" prefWidth="860.0" styleClass="main-panel" stylesheets="@CSS/signup.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.signupController">
    <children>
-      <Pane prefHeight="510.0" prefWidth="406.0" styleClass="logo-panel" stylesheets="@CSS/signup.css">
+      <Pane prefHeight="510.0" prefWidth="378.0" styleClass="logo-panel" stylesheets="@CSS/signup.css">
          <children>
-            <ImageView fitHeight="213.0" fitWidth="245.0" layoutX="76.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="213.0" fitWidth="245.0" layoutX="74.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logo.png" />
                </image></ImageView>
@@ -22,24 +22,27 @@
       </Pane>
       <Pane layoutX="409.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="451.0" styleClass="main-panel" stylesheets="@CSS/signup.css">
          <children>
-            <Label alignment="CENTER" layoutX="176.0" layoutY="50.0" prefHeight="29.0" prefWidth="98.0" text="Sign up">
+            <Label alignment="CENTER" layoutX="157.0" layoutY="46.0" prefHeight="36.0" prefWidth="137.0" text="Sign up">
                <font>
-                  <Font name="Calibri Bold" size="30.0" />
+                  <Font name="System Bold" size="28.0" />
                </font>
             </Label>
             <TextField fx:id="firstNameField" layoutX="79.0" layoutY="120.0" prefHeight="25.0" prefWidth="137.0" promptText="Firstname" />
             <TextField fx:id="lastNameField" layoutX="235.0" layoutY="120.0" prefHeight="25.0" prefWidth="137.0" promptText="Lastname" />
             <TextField fx:id="nationalityField" layoutX="235.0" layoutY="161.0" prefHeight="25.0" prefWidth="137.0" promptText="Nationality" />
             <TextField fx:id="cardIdField" layoutX="79.0" layoutY="200.0" prefHeight="25.0" prefWidth="137.0" promptText="Card ID" />
-            <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="281.0" prefHeight="25.0" prefWidth="292.0" promptText="Password should be more then 8 characters" />
+            <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="281.0" prefHeight="25.0" prefWidth="292.0" promptText="Password should be more than 8 characters">
+               <font>
+                  <Font size="12.0" />
+               </font></PasswordField>
             <TextField fx:id="ageField" layoutX="79.0" layoutY="161.0" prefHeight="25.0" prefWidth="137.0" promptText="Age" />
             <PasswordField fx:id="confirmPasswordField" layoutX="80.0" layoutY="323.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password" />
-            <Button fx:id="register" layoutX="111.0" layoutY="364.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="230.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Register" textFill="#f8f4f4">
+            <Button fx:id="register" layoutX="157.0" layoutY="371.0" mnemonicParsing="false" onAction="#signUp" prefHeight="34.0" prefWidth="137.0" style="-fx-background-color: #0C39FF;" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Register" textFill="#f8f4f4">
                <font>
-                  <Font name="Khmer UI Bold" size="12.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="133.0" layoutY="405.0" mnemonicParsing="false" onAction="#toLogin" style="-fx-background-color: white; -fx-cursor: hand;" text="Already have an account ? " textFill="#1342d1" underline="true">
+            <Button layoutX="122.0" layoutY="427.0" mnemonicParsing="false" onAction="#toLogin" style="-fx-background-color: white; -fx-cursor: hand;" text="Already have an account ? " textFill="#1342d1" underline="true">
                <font>
                   <Font size="14.0" />
                </font>
