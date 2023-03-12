@@ -19,7 +19,8 @@ import java.time.temporal.ChronoUnit;
 
 public class accountController extends sceneController {
     @FXML
-    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance, accountType;
+    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance,
+            accountType;
     @FXML
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     protected int userId;
@@ -44,7 +45,7 @@ public class accountController extends sceneController {
                 "where user_id=" + userId);
         while (rs.next()) {
             accountName.setText(rs.getString(1));
-            accountBalance.setText(" $"+String.valueOf(rs.getDouble(2)));
+            accountBalance.setText(" $" + String.valueOf(rs.getDouble(2)));
             accountType.setText(rs.getString(3));
         }
     }
@@ -74,10 +75,10 @@ public class accountController extends sceneController {
                     depositLabel.setTextFill(Color.GREEN);
                     depositLabel.setText("Deposit Successfully");
                     depositAmount.setText("");
-                    //add to deposit table
+                    // add to deposit table
                     ps = Database.set("insert into deposit(user_id, amount, date, time) " +
                             "values (" + userId + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
-                            LocalTime.now().truncatedTo(ChronoUnit.SECONDS) +"\")");
+                            LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                     ps.executeUpdate();
                 }
             }
@@ -187,10 +188,12 @@ public class accountController extends sceneController {
                                 receiverNo.setText("");
                                 receiverLabel.setText("");
                                 // add to transfer table
-                                ps = Database.set("insert into transfer(user_id, message, amount, receiver_id, date, time) " +
-                                        "values (" + userId + ", \"" + transferMessage.getText() + "\", " + amt +
-                                        ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
-                                        LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
+                                ps = Database.set(
+                                        "insert into transfer(user_id, message, amount, receiver_id, date, time) " +
+                                                "values (" + userId + ", \"" + transferMessage.getText() + "\", " + amt
+                                                +
+                                                ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
+                                                LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                                 ps.executeUpdate();
                                 transferMessage.setText("");
                             }

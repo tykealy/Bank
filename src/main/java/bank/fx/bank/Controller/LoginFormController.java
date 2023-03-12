@@ -12,13 +12,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Encryption;
 import bank.fx.bank.Main;
-import bank.fx.bank.User;
 
 public class LoginFormController extends sceneController {
 
@@ -65,9 +63,9 @@ public class LoginFormController extends sceneController {
                     // accountController accountCtrl = loader.getController();
                     // accountCtrl.setUserIdLabel(full_name);
                     super.switchToAccScene(event, root);
-                    System.out.println(CurrentUser.firstName + CurrentUser.lastName);
                 }
             } catch (Exception e) {
+                lblErrors.setText("Invalid login infomation.");
             }
         } else {
             lblErrors.setText("Please enter your account number and password!");

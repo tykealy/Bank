@@ -4,8 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class User {
-    public static String firstName, lastName, nationality, idCard, phone, email, password, password_salt;
-    public static int id, age;
+    public String firstName, lastName, nationality, idCard, phone, email, password, password_salt;
+    public int id, age;
 
     public void create() {
         String sqlString = """
@@ -23,7 +23,7 @@ public class User {
             stmt.setString(5, idCard);
             stmt.setString(6, phone);
             stmt.setString(7, email);
-            stmt.setString(8, Encryption.encrypt(this.password, salt));
+            stmt.setString(8, Encryption.encrypt(password, salt));
             stmt.setString(9, salt);
             stmt.executeUpdate();
         } catch (SQLException e) {
