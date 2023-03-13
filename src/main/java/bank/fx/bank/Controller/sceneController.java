@@ -48,6 +48,22 @@ public class sceneController {
         stage.show();
     }
 
+    public void switchToDepositScene(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Main.class.getResource("depositScene.fxml"));
+        stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToWithdrawScene(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Main.class.getResource("withdrawScene.fxml"));
+        stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void exit(ActionEvent event, Pane pane) {
         stage = (Stage) pane.getScene().getWindow();
         stage.close();

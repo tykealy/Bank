@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="510.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.accountController">
+   <children>
+      <Pane layoutX="253.0" layoutY="23.0" prefHeight="465.0" prefWidth="593.0">
+         <children>
+            <Button alignment="CENTER" layoutX="59.0" layoutY="22.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="476.0" styleClass="deposit" stylesheets="@CSS/dashbaord.css" text="Deposit">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <Pane layoutX="67.0" layoutY="104.0" prefHeight="102.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="4.0" layoutY="14.0" prefHeight="17.0" prefWidth="60.0" text="User ID :" />
+                  <TextField fx:id="userIdBtn" layoutX="78.0" layoutY="10.0" prefHeight="25.0" prefWidth="101.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="-2.0" layoutY="90.0" prefHeight="374.0" prefWidth="567.0">
+               <children>
+                  <TextField fx:id="depositAmount" alignment="CENTER" layoutX="158.0" layoutY="169.0" prefHeight="25.0" prefWidth="157.0" />
+                  <Button fx:id="DepositBtn" layoutX="45.0" layoutY="225.0" mnemonicParsing="false" onAction="#deposit" prefHeight="32.0" prefWidth="273.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Deposit" textFill="WHITE" />
+                  <Label layoutX="90.0" layoutY="174.0" text="Amount :" />
+                  <Label fx:id="errorBtn1" layoutX="114.0" layoutY="211.0" prefHeight="17.0" prefWidth="334.0" textFill="#e03434" />
+                  <Label fx:id="depositLabel" layoutX="324.0" layoutY="174.0" prefHeight="16.0" prefWidth="124.0" text="l" />
+               </children>
+            </Pane>
+            <ImageView fitHeight="157.0" fitWidth="258.0" layoutX="297.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/card.png" />
+               </image>
+            </ImageView>
+         </children>
+         <effect>
+            <Glow />
+         </effect>
+      </Pane>
+      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="94.02" offsetX="1.0" radius="46.787499999999994" spread="0.01" width="95.13">
+               <color>
+                  <Color red="0.75" green="0.7395833134651184" blue="0.7395833134651184" />
+               </color>
+            </DropShadow>
+         </effect>
+         <children>
+            <AnchorPane prefHeight="635.0" prefWidth="227.0">
+               <children>
+                  <Pane layoutX="24.0" layoutY="16.0" prefHeight="66.0" prefWidth="188.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, rgba(74,141,222,1) 2%, rgba(37,87,218,1) 45%); -fx-background-radius: 10;" />
+                  <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="236.0" stylesheets="@CSS/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="75.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@images/logo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutY="116.0" prefHeight="519.0" prefWidth="236.0" styleClass="menu_container" stylesheets="@CSS/dashboard.css">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#toAccount" prefHeight="31.0" prefWidth="147.0" stylesheets="@CSS/dashboard.css" text="Account ">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/user.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" styleClass="currentButton" text="Deposit">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/save-money.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#toWithdraw" prefHeight="33.0" prefWidth="119.0" text="Withdraw">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/cash-withdrawal.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" text="Transfer">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/transfer.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" text="Loan">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/money-bag.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Line endX="38.62620544433594" endY="-4.3114027903357055E-6" startX="-100.0" />
+                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Logout" textAlignment="RIGHT" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

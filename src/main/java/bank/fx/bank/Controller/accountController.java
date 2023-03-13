@@ -1,9 +1,12 @@
 package bank.fx.bank.Controller;
 
 import bank.fx.bank.Database;
+import bank.fx.bank.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
@@ -22,8 +25,7 @@ public class accountController extends sceneController implements Initializable 
     @FXML
     public ChoiceBox<String> transactionType, accountSwitch;
     @FXML
-    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance,
-            accountType;
+    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance, accountType;
     @FXML
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     @FXML
@@ -31,7 +33,7 @@ public class accountController extends sceneController implements Initializable 
     protected int userId = 4;
     @FXML
     private double balance = 0, amt = 0, result = 0;
-    private ResultSet rs, rs2;
+    private ResultSet rs;
     private PreparedStatement ps;
     String[] transactionChoice = {"Deposit", "Withdraw", "Transfer"};
     ArrayList<String> deposit = new ArrayList<>();
@@ -217,15 +219,20 @@ public class accountController extends sceneController implements Initializable 
         }
     }
 
-    @FXML
-    public void logout(ActionEvent event) throws IOException {
-        super.switchToLoginScene(event);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        transactionType.getItems().addAll(transactionChoice);
-        transactionType.setOnAction(this::getData);
+        try {
+            accountName.setText("");
+            accountBalance.setText("");
+            accountType.setText("");
+            transactionType.getItems().addAll(transactionChoice);
+            transactionType.setOnAction(this::getData);
+            displayInfo();
+        } catch (NullPointerException ignored) {
+            /* Just ignore it */
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void getData(ActionEvent event) {
@@ -291,13 +298,11 @@ public class accountController extends sceneController implements Initializable 
                             "HAVING user_id="+userId+" ORDER BY transfer.date desc, transfer.time desc;");
                     while (rs.next()) {
                         currentReceiverId = rs.getInt(5);
-                        System.out.println(rs.getInt(5));
-                        rs2 = Database.get("SELECT DISTINCT account.account_name, transfer.receiver_id FROM account " +
-                                            "INNER JOIN transfer ON account.user_id=transfer.receiver_id " +
-                                            "HAVING receiver_id="+currentReceiverId);
+                        ResultSet rs2 = Database.get("SELECT DISTINCT account.account_name, transfer.receiver_id FROM account " +
+                                "INNER JOIN transfer ON account.user_id=transfer.receiver_id " +
+                                "HAVING receiver_id=" + currentReceiverId);
                         if (rs2.next()) {
                             receiverName = rs2.getString(1);
-                            System.out.println(receiverName);
                         }
                         if (transfer.size() < 10) {
                             transfer.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
@@ -317,5 +322,27 @@ public class accountController extends sceneController implements Initializable 
                 }
             }
         }
+    }
+
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+        super.switchToLoginScene(event);
+    }
+
+    @FXML
+    public void toAccount(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
+        Parent root = loader.load();
+        super.switchToAccScene(event,root);
+    }
+
+    @FXML
+    public void toDeposit(ActionEvent event) throws IOException {
+        super.switchToDepositScene(event);
+    }
+
+    @FXML
+    public void toWithdraw(ActionEvent event) throws IOException {
+        super.switchToWithdrawScene(event);
     }
 }
