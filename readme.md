@@ -29,14 +29,6 @@ primary key (id)
 
 ```
 
-dump in some data
-
-```mysql
-
-INSERT INTO `bank_management`.`users` (`first_name`, `last_name`, `age`, `nationality`, `id_card`, `phone`, `email`, `password`) VALUES ('Tykea', 'Ly', 19, 'Cambodian', '1244234', '4534525', 'Tykeaboyloy@gmail.com', '123456789');
-
-```
-
 create a table name "account"
 
 ```mysql
@@ -62,7 +54,7 @@ create a table name "deposit"
 
 ```mysql
 create table deposit(
-deposit_id int auto_increment,
+id int auto_increment,
 user_id int,
 account_no int,
 amount double not null default 0,
@@ -70,7 +62,7 @@ date date,
 time time,
 foreign key (user_id) references users(id),
 foreign key (account_no) references account(account_number),
-primary key(deposit_id)
+primary key(id)
 );
 ```
 
@@ -84,7 +76,7 @@ create a table name "withdraw"
 
 ```mysql
 create table withdraw(
-withdrawn_id int auto_increment,
+id int auto_increment,
 user_id int,
 account_no int,
 amount double not null default 0,
@@ -92,7 +84,7 @@ date date,
 time time,
 foreign key (user_id) references users(id),
 foreign key (account_no) references account(account_number),
-primary key(withdrawn_id)
+primary key(id)
 );
 ```
 
@@ -106,7 +98,7 @@ create a table name "transfer"
 
 ```mysql
 create table transfer(
-transfer_id int auto_increment,
+id int auto_increment,
 user_id int,
 account_no int,
 amount double not null default 0,
@@ -116,7 +108,7 @@ date date,
 time time,
 foreign key (user_id) references users(id),
 foreign key (account_no) references account(account_number),
-primary key(transfer_id)
+primary key(id)
 );
 ```
 
