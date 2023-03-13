@@ -149,7 +149,7 @@ public class signupController extends sceneController {
                 if (alert.showAndWait().get() == ButtonType.OK) {
                     user.create();
                     createAccount(user);
-                    super.switchToMainScene(event);
+                    super.switchToLoginScene(event);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
