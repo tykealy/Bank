@@ -28,7 +28,7 @@
             </ImageView>
          </VBox>
          <VBox alignment="TOP_CENTER" layoutY="116.0" prefHeight="519.0" prefWidth="236.0" styleClass="menu_container" stylesheets="@CSS/dashboard.css">
-            <Button mnemonicParsing="false" onAction="#displayInfo" prefHeight="31.0" prefWidth="147.0" styleClass="currentButton" stylesheets="@CSS/dashboard.css" text="Account ">
+            <Button mnemonicParsing="false" onAction="#getCurrentUser" prefHeight="31.0" prefWidth="147.0" styleClass="currentButton" stylesheets="@CSS/dashboard.css" text="Account ">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@images/user.png" />
