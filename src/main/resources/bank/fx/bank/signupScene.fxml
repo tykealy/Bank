@@ -22,7 +22,7 @@
       </Pane>
       <Pane layoutX="409.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="451.0" styleClass="main-panel" stylesheets="@CSS/signup.css">
          <children>
-            <Label alignment="CENTER" layoutX="157.0" layoutY="46.0" prefHeight="36.0" prefWidth="137.0" text="Sign up">
+            <Label alignment="CENTER" layoutX="158.0" layoutY="53.0" prefHeight="36.0" prefWidth="137.0" text="Sign up">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
@@ -36,7 +36,10 @@
                   <Font size="12.0" />
                </font></PasswordField>
             <TextField fx:id="ageField" layoutX="79.0" layoutY="161.0" prefHeight="25.0" prefWidth="137.0" promptText="Age" />
-            <PasswordField fx:id="confirmPasswordField" layoutX="80.0" layoutY="323.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password" />
+            <PasswordField fx:id="confirmPasswordField" layoutX="80.0" layoutY="323.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password">
+               <font>
+                  <Font size="12.0" />
+               </font></PasswordField>
             <Button fx:id="register" layoutX="157.0" layoutY="371.0" mnemonicParsing="false" onAction="#signUp" prefHeight="34.0" prefWidth="137.0" style="-fx-background-color: #0C39FF;" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Register" textFill="#f8f4f4">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -51,47 +54,47 @@
             <TextField fx:id="emailField" layoutX="79.0" layoutY="240.0" prefHeight="25.0" prefWidth="292.0" promptText="Email" />
             <Label fx:id="errorFirstName" layoutX="80.0" layoutY="145.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorLastname" layoutX="235.0" layoutY="145.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorAge" layoutX="80.0" layoutY="186.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorNationality" layoutX="235.0" layoutY="186.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorCardId" layoutX="80.0" layoutY="225.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
-            <Label fx:id="errorPhone" layoutX="235.0" layoutY="225.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
+            <Label fx:id="errorPhone" layoutX="235.0" layoutY="225.0" prefHeight="12.0" prefWidth="170.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorEmail" layoutX="80.0" layoutY="265.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorPasswordConfirm" layoutX="80.0" layoutY="348.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
             <Label fx:id="errorPassword" layoutX="80.0" layoutY="306.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
                <font>
-                  <Font size="8.0" />
+                  <Font size="9.0" />
                </font>
             </Label>
          </children>

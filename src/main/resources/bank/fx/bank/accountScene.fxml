@@ -41,14 +41,14 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" text="Deposit">
+            <Button mnemonicParsing="false" onAction="#toDeposit" prefHeight="31.0" prefWidth="121.0" text="Deposit">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@images/save-money.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" text="Withdraw">
+            <Button mnemonicParsing="false" onAction="#toWithdraw" prefHeight="33.0" prefWidth="119.0" text="Withdraw">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@images/cash-withdrawal.png" />
@@ -65,13 +65,12 @@
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" text="Loan">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/money-bag.png" />
-                     </image>
+                     <Image url="@images/money-bag.png" />
                   </ImageView>
                </graphic>
             </Button>
             <Line endX="38.62620544433594" endY="-4.3114027903357055E-6" startX="-100.0" />
+            <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Profile" textAlignment="RIGHT" textFill="WHITE" />
             <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Logout" textAlignment="RIGHT" textFill="WHITE" />
          </VBox>
       </AnchorPane>
@@ -91,7 +90,7 @@
             </font>
          </Label>
          <Line endX="452.0" layoutX="114.0" layoutY="93.0" startX="-100.0" stroke="#00000034" />
-         <Line endX="-100.0" endY="44.0" layoutX="391.0" layoutY="32.0" startX="-100.0" startY="-10.0" />
+         <Line endX="-100.0" endY="44.0" layoutX="398.0" layoutY="33.0" startX="-100.0" startY="-10.0" />
          <Label layoutX="326.0" layoutY="36.0" prefHeight="26.0" prefWidth="70.0" text="Type:">
             <font>
                <Font size="21.0" />
@@ -102,7 +101,7 @@
                <Font size="21.0" />
             </font>
          </Label>
-         <ChoiceBox fx:id="accountSwitch" layoutX="169.0" layoutY="36.0" prefHeight="26.0" prefWidth="113.0" />
+         <ChoiceBox fx:id="accountSwitch" layoutX="170.0" layoutY="37.0" prefHeight="26.0" prefWidth="113.0" />
       </Pane>
       <Button layoutX="353.0" layoutY="471.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="180.0" style="-fx-text-fill: white; -fx-background-color: rgb(21,123,241);     -fx-effect: dropshadow(three-pass-box , #DDDDDD ,10,0,5,5); -fx-cursor: hand;" text="Create Account">
          <font>
@@ -138,7 +137,7 @@
                <Font size="18.0" />
             </font>
          </Label>
-         <Label fx:id="accountBalance" layoutX="13.0" layoutY="100.0" prefHeight="26.0" prefWidth="208.0">
+         <Label fx:id="accountBalance" layoutX="20.0" layoutY="86.0" prefHeight="48.0" prefWidth="208.0" textFill="#2b9744">
             <font>
                <Font size="18.0" />
             </font>
