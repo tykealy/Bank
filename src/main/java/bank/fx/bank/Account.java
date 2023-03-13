@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Account {
-    public String account_number;
+    public int account_number;
     public String account_name;
     public String account_type;
     public Double balance;
     public int is_active;
 
-    public Account(String account_name, String account_number, String account_type, Double balance, int is_active) {
+    public Account(String account_name, int account_number, String account_type, Double balance, int is_active) {
         this.account_name = account_name;
         this.account_number = account_number;
         this.account_type = account_type;
@@ -29,7 +29,7 @@ public class Account {
         while (i > 0) {
             accountSet.absolute(i);
             String account_name = accountSet.getString("account_name");
-            String account_number = accountSet.getString("account_number");
+            int account_number = accountSet.getInt("account_number");
             String account_type = accountSet.getString("account_type");
             Double balance = accountSet.getDouble("balance");
             int is_active = accountSet.getInt("is_active");

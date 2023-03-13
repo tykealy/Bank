@@ -42,13 +42,13 @@ public class LoginFormController extends sceneController {
 
     @FXML
     void SignIn(ActionEvent event) {
-        String account_number = accountNumber.getText();
+        int account_number = Integer.parseInt(accountNumber.getText());
         String user_password = txtPassword.getText();
 
         if (accountNumber.getText().isBlank() == false && txtPassword.getText().isBlank() == false) {
             try {
                 ResultSet rs = Database
-                        .get("select user_id from account where account_number =  '" + account_number + "';");
+                        .get("select user_id from account where account_number =  " + account_number + ";");
 
                 rs.absolute(1);
                 int user_id = rs.getInt(1);
@@ -65,8 +65,8 @@ public class LoginFormController extends sceneController {
                     FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
                     Parent root = loader.load();
                     CurrentUser.setCurrentUser(rs);
-//                    accountController accountCtrl = loader.getController();
-//                    accountCtrl.setUserIdLabel(String.valueOf(user_id));
+                    // accountController accountCtrl = loader.getController();
+                    // accountCtrl.setUserIdLabel(String.valueOf(user_id));
                     super.switchToAccScene(event, root);
                 }
             } catch (Exception e) {

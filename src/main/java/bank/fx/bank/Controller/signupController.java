@@ -16,7 +16,8 @@ import javafx.scene.paint.Color;
 
 public class signupController extends sceneController {
     @FXML
-    public Label errorFirstName, errorLastname, errorAge, errorNationality, errorCardId, errorPhone, errorEmail, errorPassword, errorPasswordConfirm;
+    public Label errorFirstName, errorLastname, errorAge, errorNationality, errorCardId, errorPhone, errorEmail,
+            errorPassword, errorPasswordConfirm;
     @FXML
     private TextField firstNameField, lastNameField, ageField, nationalityField, cardIdField, phoneField, emailField;
     @FXML
@@ -71,14 +72,21 @@ public class signupController extends sceneController {
     public void check(boolean prompt, Label errorField, String keyword) {
         if (prompt) {
             errorField.setTextFill(Color.RED);
-            errorField.setText("Please fill in your "+ keyword);
+            errorField.setText("Please fill in your " + keyword);
         }
     }
 
     public void signUp(ActionEvent event) throws IOException {
         User user = new User();
-        errorFirstName.setText(""); errorLastname.setText(""); errorAge.setText(""); errorNationality.setText("");
-        errorCardId.setText(""); errorPhone.setText(""); errorEmail.setText(""); errorPassword.setText(""); errorPasswordConfirm.setText("");
+        errorFirstName.setText("");
+        errorLastname.setText("");
+        errorAge.setText("");
+        errorNationality.setText("");
+        errorCardId.setText("");
+        errorPhone.setText("");
+        errorEmail.setText("");
+        errorPassword.setText("");
+        errorPasswordConfirm.setText("");
         try {
             if (Integer.parseInt(ageField.getText()) < 18) {
                 errorAge.setTextFill(Color.RED);
@@ -89,7 +97,8 @@ public class signupController extends sceneController {
                 }
                 ageField.setText("");
             }
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException ignored) {
+        }
         if (passwordField.getText().length() < 8) {
             errorPassword.setTextFill(Color.RED);
             if (passwordField.getText().isBlank()) {
@@ -113,11 +122,11 @@ public class signupController extends sceneController {
             errorPasswordConfirm.setText("Password does not match!");
             confirmPasswordField.setText("");
         }
-        if (
-            firstNameField.getText().isBlank() || lastNameField.getText().isBlank() || ageField.getText().isBlank() ||
-            nationalityField.getText().isBlank() || cardIdField.getText().isBlank() || phoneField.getText().isBlank() ||
-            emailField.getText().isBlank() || passwordField.getText().isBlank() || confirmPasswordField.getText().isBlank()
-        ) {
+        if (firstNameField.getText().isBlank() || lastNameField.getText().isBlank() || ageField.getText().isBlank() ||
+                nationalityField.getText().isBlank() || cardIdField.getText().isBlank()
+                || phoneField.getText().isBlank() ||
+                emailField.getText().isBlank() || passwordField.getText().isBlank()
+                || confirmPasswordField.getText().isBlank()) {
             check(firstNameField.getText().isBlank(), errorFirstName, "first name");
             check(lastNameField.getText().isBlank(), errorLastname, "last name");
             check(nationalityField.getText().isBlank(), errorNationality, "nationality");
