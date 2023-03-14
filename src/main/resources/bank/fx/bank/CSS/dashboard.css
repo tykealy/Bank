@@ -36,6 +36,7 @@
 }
 
 .currentButton{
+
     -fx-pref-width:130;
     -fx-pref-height:40;
     -fx-text-fill:white;
@@ -52,6 +53,7 @@
 }
 
 .text_logout{
+
     -fx-alignment:center;
     -fx-background-color:rgb(21,123,241);
 }
@@ -59,4 +61,9 @@
 .text_logout:hover{
     -fx-alignment:center;
     -fx-background-color:rgb(21,123,260);
+}
+
+.imge {
+
+ -fx-background-color: rgb(21,123,241);
 }
