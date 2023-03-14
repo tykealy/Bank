@@ -67,3 +67,10 @@
    -fx-effect: dropshadow(three-pass-box , #DDDDDD ,5,0,0,6);
    -fx-alignment:center;
 }
+
+.IdCard {
+    -fx-background-color:#ffff;
+       -fx-effect: dropshadow(three-pass-box , #DDDDDD ,5,0,0,6);
+}
+
+
