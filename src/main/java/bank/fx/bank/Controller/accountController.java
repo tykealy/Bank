@@ -1,5 +1,7 @@
 package bank.fx.bank.Controller;
 
+import bank.fx.bank.Account;
+import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Main;
 import javafx.event.ActionEvent;
@@ -30,7 +32,8 @@ public class accountController extends sceneController implements Initializable 
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     @FXML
     private ListView<String> transaction;
-    protected int userId = 4;
+//    protected int userId = CurrentUser.id;
+    Account cAcc;
     @FXML
     private double balance = 0, amt = 0, result = 0;
     private ResultSet rs;
@@ -39,24 +42,51 @@ public class accountController extends sceneController implements Initializable 
     ArrayList<String> deposit = new ArrayList<>();
     ArrayList<String> withdraw = new ArrayList<>();
     ArrayList<String> transfer = new ArrayList<>();
-
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    ArrayList<Account> accounts;
+    ArrayList<String> accountNumbers;
 
-    public void setUserIdLabel(String id) throws SQLException {
-        /* Initialized Alert */
-        alert.setContentText("Please confirm the transaction");
-        userIdLabel.setText(id);
-        /* Set current user id */
-        userId = Integer.parseInt(userIdLabel.getText());
-        userIdLabel.setText("");
+    public void initializeUser() throws SQLException {
+        accounts = CurrentUser.getAccounts();
+        cAcc = accounts.get(0);
+    }
+
+    public void getCurrentUser() throws SQLException {
+        accounts = CurrentUser.getAccounts();
+        accountSwitch.getItems().clear();
+        ArrayList<String> accountNumbers = new ArrayList<>();
+        for (Account account : accounts) {
+            accountNumbers.add(String.valueOf(account.account_number));
+        }
+        try {
+            accountSwitch.getItems().addAll(accountNumbers);
+            accountSwitch.setValue(String.valueOf(cAcc.account_number));
+            accountSwitch.setOnAction(this::getAccount);
+        } catch (NullPointerException e) {
+            System.out.println("Don't mind me");
+        }
         displayInfo();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        alert.setContentText("Please confirm the transaction");
+        try {
+            transactionType.getItems().addAll(transactionChoice);
+            transactionType.setOnAction(this::getData);
+            accountSwitch.getItems().addAll(accountNumbers);
+            accountSwitch.setOnAction(this::getAccount);
+        } catch (NullPointerException ignored) {
+            /* Just ignore it */
+        }
     }
 
     @FXML
     protected void displayInfo() throws SQLException {
+//        getCurrentUser();
         rs = Database.get("select account_name, balance, account_type " +
                 "from account " +
-                "where user_id=" + userId);
+                "where account_number=" + cAcc.account_number);
         if (rs.next()) {
             accountName.setText(rs.getString(1));
             accountBalance.setText(" $" + rs.getDouble(2));
@@ -64,174 +94,24 @@ public class accountController extends sceneController implements Initializable 
         }
     }
 
-    @FXML
-    protected void deposit() throws SQLException {
+    private void getAccount(ActionEvent event) {
+        int currentAccNo=0;
         try {
-            amt = Double.parseDouble(depositAmount.getText());
-            if (amt == 0) {
-                depositAmount.setText("");
-                depositLabel.setText("");
-            } else {
-                rs = Database.get("select balance from account where user_id=" + userId);
-                while (rs.next()) {
-                    balance = rs.getDouble(1);
-                    result = balance + amt;
-                }
-                ps = Database.set("update account set balance=? where user_id=" + userId);
-                ps.setDouble(1, result);
-                alert.setHeaderText("Deposit Amount: $" + amt);
-
-                if (alert.showAndWait().get() == ButtonType.OK) {
-                    ps.executeUpdate();
-                    depositLabel.setTextFill(Color.GREEN);
-                    depositLabel.setText("Deposit Successfully");
-                    depositAmount.setText("");
-                    // add to deposit table
-                    ps = Database.set("insert into deposit(user_id, amount, date, time) " +
-                            "values (" + userId + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
-                            LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
-                    ps.executeUpdate();
-                }
+            currentAccNo = Integer.parseInt(accountSwitch.getValue());
+        } catch (NumberFormatException ignored) {}
+        if (currentAccNo == 0) {
+        } else {
+            try {
+                ResultSet rs = Database.get("select * from account where account_number="+currentAccNo);
+                rs.absolute(1);
+                cAcc.account_number = rs.getInt("account_number");
+                cAcc.account_name = rs.getString("account_name");
+                cAcc.account_type = rs.getString("account_type");
+                cAcc.balance = rs.getDouble("balance");
+//                System.out.println(cAcc.account_number);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (NumberFormatException ne) {
-            depositLabel.setTextFill(Color.RED);
-            depositLabel.setText("Invalid amount");
-            depositAmount.setText("");
-        }
-    }
-
-    @FXML
-    protected void withdraw() throws SQLException {
-        try {
-            amt = Double.parseDouble(withdrawAmount.getText());
-            if (amt == 0) {
-                withdrawAmount.setText("");
-                withdrawLabel.setText("");
-            } else {
-                rs = Database.get("select balance from account where user_id=" + userId);
-                while (rs.next()) {
-                    balance = rs.getDouble(1);
-                }
-                if (amt <= balance) {
-                    result = balance - amt;
-                    ps = Database.set("update account set balance=? where user_id=" + userId);
-                    ps.setDouble(1, result);
-                    alert.setHeaderText("Withdrawn Amount: $" + amt);
-
-                    if (alert.showAndWait().get() == ButtonType.OK) {
-                        ps.executeUpdate();
-                        withdrawLabel.setTextFill(Color.GREEN);
-                        withdrawLabel.setText("Withdraw Successfully");
-                        withdrawAmount.setText("");
-                        /* add to withdraw table */
-                        ps = Database.set("insert into withdraw(user_id, amount, date, time) " +
-                                "values (" + userId + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
-                                LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
-                        ps.executeUpdate();
-                    }
-                } else {
-                    withdrawLabel.setTextFill(Color.RED);
-                    withdrawLabel.setText("Over account balance");
-                    withdrawAmount.setText("");
-                }
-            }
-        } catch (NumberFormatException ne) {
-            withdrawLabel.setTextFill(Color.RED);
-            withdrawLabel.setText("Invalid amount");
-            withdrawAmount.setText("");
-        }
-    }
-
-    @FXML
-    public void transfer() throws SQLException {
-        String username;
-        try {
-            if (transferAmount.getText().equals("")) {
-                transferLabel.setTextFill(Color.RED);
-                transferLabel.setText("Specify an amount");
-            } else if (receiverNo.getText().equals("")) {
-                receiverLabel.setTextFill(Color.RED);
-                receiverLabel.setText("Specify the receiver");
-            } else {
-                amt = Double.parseDouble(transferAmount.getText());
-                int receiver = Integer.parseInt(receiverNo.getText());
-                rs = Database.get("select count(user_id), account_name from account where user_id=" + receiver);
-                while (rs.next()) {
-                    if (rs.getInt(1) == 0) {
-                        receiverLabel.setTextFill(Color.RED);
-                        receiverLabel.setText("User does not exist");
-                        receiverNo.setText("");
-                    } else if (receiver == userId) {
-                        receiverLabel.setTextFill(Color.RED);
-                        receiverLabel.setText("Current Account");
-                        receiverNo.setText("");
-                    } else {
-                        /* remove balance */
-                        username = rs.getString(2);
-                        rs = Database.get("select balance from account where user_id=" + userId);
-                        while (rs.next()) {
-                            balance = rs.getDouble(1);
-                        }
-                        if (amt <= balance) {
-                            result = balance - amt;
-                            ps = Database.set("update account set balance=? where user_id=" + userId);
-                            ps.setDouble(1, result);
-                            alert.setHeaderText("Transfer Amount: $" + amt + "\nReceiver Name: " + username);
-
-                            if (alert.showAndWait().get() == ButtonType.OK) {
-                                ps.executeUpdate();
-
-                                /* add to receiver */
-                                rs = Database.get("select balance from account where user_id=" + receiver);
-                                while (rs.next()) {
-                                    balance = rs.getDouble(1);
-                                    result = balance + amt;
-                                }
-                                ps = Database.set("update account set balance=? where user_id=" + receiver);
-                                ps.setDouble(1, result);
-                                ps.executeUpdate();
-                                transferLabel.setTextFill(Color.GREEN);
-                                transferLabel.setText("Transfer Successfully");
-                                transferAmount.setText("");
-                                receiverNo.setText("");
-                                receiverLabel.setText("");
-                                /* add to transfer table */
-                                ps = Database.set("insert into transfer(user_id, message, amount, receiver_id, date, time) " +
-                                        "values (" + userId + ", \"" + transferMessage.getText() + "\", " + amt +
-                                        ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
-                                        LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
-                                ps.executeUpdate();
-                                transferMessage.setText("");
-                            }
-                        } else {
-                            transferLabel.setTextFill(Color.RED);
-                            transferLabel.setText("Over account balance");
-                            transferAmount.setText("");
-                        }
-                    }
-                }
-            }
-        } catch (NumberFormatException ne) {
-            transferLabel.setTextFill(Color.RED);
-            transferLabel.setText("Invalid input");
-            transferAmount.setText("");
-            receiverNo.setText("");
-        }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            accountName.setText("");
-            accountBalance.setText("");
-            accountType.setText("");
-            transactionType.getItems().addAll(transactionChoice);
-            transactionType.setOnAction(this::getData);
-            displayInfo();
-        } catch (NullPointerException ignored) {
-            /* Just ignore it */
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -243,9 +123,9 @@ public class accountController extends sceneController implements Initializable 
                 deposit.clear();
                 try {
                     rs = Database.get("" +
-                            "SELECT account.user_id, account.account_name, deposit.amount, deposit.date, deposit.time FROM account " +
-                            "INNER JOIN deposit ON account.user_id=deposit.user_id " +
-                            "HAVING user_id=" + userId + " ORDER BY deposit.date DESC, deposit.time DESC;" +
+                            "SELECT account.account_number, account.account_name, deposit.amount, deposit.date, deposit.time FROM account " +
+                            "INNER JOIN deposit ON account.account_number=deposit.account_no " +
+                            "HAVING account_number=" + cAcc.account_number + " ORDER BY deposit.date DESC, deposit.time DESC;" +
                             "");
                     while (rs.next()) {
                         if (deposit.size() < 10) {
@@ -267,9 +147,9 @@ public class accountController extends sceneController implements Initializable 
                 withdraw.clear();
                 try {
                     rs = Database.get("" +
-                            "SELECT account.user_id, account.account_name, withdraw.amount, withdraw.date, withdraw.time FROM account " +
-                            "INNER JOIN withdraw ON account.user_id=withdraw.user_id " +
-                            "HAVING user_id=" + userId + " ORDER BY withdraw.date DESC, withdraw.time DESC;" +
+                            "SELECT account.account_number, account.account_name, withdraw.amount, withdraw.date, withdraw.time FROM account " +
+                            "INNER JOIN withdraw ON account.account_number=withdraw.account_no " +
+                            "HAVING account_number=" + cAcc.account_number + " ORDER BY withdraw.date DESC, withdraw.time DESC;" +
                             "");
                     while (rs.next()) {
                         if (withdraw.size() < 10) {
@@ -292,14 +172,14 @@ public class accountController extends sceneController implements Initializable 
                 try {
                     int currentReceiverId;
                     String receiverName = null;
-                    rs = Database.get("SELECT account.user_id, account.account_name, transfer.amount, transfer.message," +
+                    rs = Database.get("SELECT account.account_number, account.account_name, transfer.amount, transfer.message," +
                             " transfer.receiver_id , transfer.date, transfer.time FROM account " +
-                            "INNER JOIN transfer ON account.user_id=transfer.user_id " +
-                            "HAVING user_id="+userId+" ORDER BY transfer.date desc, transfer.time desc;");
+                            "INNER JOIN transfer ON account.account_number=transfer.account_no " +
+                            "HAVING account_number="+cAcc.account_number+" ORDER BY transfer.date desc, transfer.time desc;");
                     while (rs.next()) {
                         currentReceiverId = rs.getInt(5);
                         ResultSet rs2 = Database.get("SELECT DISTINCT account.account_name, transfer.receiver_id FROM account " +
-                                "INNER JOIN transfer ON account.user_id=transfer.receiver_id " +
+                                "INNER JOIN transfer ON account.account_number=transfer.receiver_id " +
                                 "HAVING receiver_id=" + currentReceiverId);
                         if (rs2.next()) {
                             receiverName = rs2.getString(1);
@@ -329,20 +209,30 @@ public class accountController extends sceneController implements Initializable 
         super.switchToLoginScene(event);
     }
 
-    @FXML
-    public void toAccount(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
-        Parent root = loader.load();
-        super.switchToAccScene(event,root);
-    }
+//    @FXML
+//    public void toAccount(ActionEvent event) throws IOException, SQLException {
+//        FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
+//        Parent root = loader.load();
+//        accountController accountCtrl = loader.getController();
+//        accountCtrl.initializeUser();
+//        super.switchToAccScene(event,root);
+//    }
 
     @FXML
     public void toDeposit(ActionEvent event) throws IOException {
-        super.switchToDepositScene(event);
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
+        Parent root = loader.load();
+        depositController depositCtrl = loader.getController();
+        depositCtrl.setCurrentAccount(cAcc);
+        super.switchToDepositScene(event, root);
     }
 
     @FXML
     public void toWithdraw(ActionEvent event) throws IOException {
-        super.switchToWithdrawScene(event);
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("withdrawScene.fxml"));
+        Parent root = loader.load();
+        withdrawController withdrawCtrl = loader.getController();
+        withdrawCtrl.setCurrentAccount(cAcc);
+        super.switchToWithdrawScene(event, root);
     }
 }

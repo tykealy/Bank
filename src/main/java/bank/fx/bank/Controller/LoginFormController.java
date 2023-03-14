@@ -48,28 +48,25 @@ public class LoginFormController extends sceneController {
         if (accountNumber.getText().isBlank() == false && txtPassword.getText().isBlank() == false) {
             try {
                 ResultSet rs = Database
-                        .get("select user_id from account where account_number =  " + account_number + ";");
+                        .get("select user_id from account where account_number =  '" + account_number + "';");
 
                 rs.absolute(1);
                 int user_id = rs.getInt(1);
-                System.out.println(user_id);
                 rs = Database.get(
                         "select * from users where id = " + user_id + ";");
                 rs.absolute(1);
                 String password = rs.getString("password");
                 String password_salt = rs.getString("password_salt");
-                System.out.println(password);
-                System.out.println(password_salt);
-
                 if (Encryption.verifyUserPassword(user_password, password, password_salt)) {
                     FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
                     Parent root = loader.load();
                     CurrentUser.setCurrentUser(rs);
-                    // accountController accountCtrl = loader.getController();
-                    // accountCtrl.setUserIdLabel(String.valueOf(user_id));
+                    accountController accountCtrl = loader.getController();
+                    accountCtrl.initializeUser();
                     super.switchToAccScene(event, root);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 lblErrors.setText("Invalid login infomation.");
             }
         } else {

@@ -18,7 +18,8 @@ public class CurrentUser extends User {
         age = rs.getInt("age");
     }
 
-    public static void getAccounts() throws SQLException {
+    public static ArrayList<Account> getAccounts() throws SQLException {
         accounts = Account.get();
+        return accounts;
     }
 }
