@@ -63,6 +63,7 @@ public class LoginFormController extends sceneController {
                     CurrentUser.setCurrentUser(rs);
                     accountController accountCtrl = loader.getController();
                     accountCtrl.initializeUser();
+                    accountCtrl.getCurrentUser();
                     super.switchToAccScene(event, root);
                 }
             } catch (Exception e) {

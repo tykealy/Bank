@@ -2,13 +2,18 @@ package bank.fx.bank.Controller;
 
 import bank.fx.bank.Account;
 import bank.fx.bank.Database;
+import bank.fx.bank.Main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
-public class transferController {
+public class transferController extends sceneController{
     @FXML
     TextField transferAmount, receiverNo, transferMessage;
     @FXML
@@ -105,5 +110,38 @@ public class transferController {
             transferAmount.setText("");
             receiverNo.setText("");
         }
+    }
+
+    @FXML
+    public void toAccount(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
+        Parent root = loader.load();
+        accountController accountCtrl = loader.getController();
+//        accountCtrl.initializeUser();
+        accountCtrl.setCurrentUser(cAcc);
+        super.switchToAccScene(event,root);
+    }
+
+    @FXML
+    public void toDeposit(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
+        Parent root = loader.load();
+        depositController depositCtrl = loader.getController();
+        depositCtrl.setCurrentAccount(cAcc);
+        super.switchToDepositScene(event, root);
+    }
+
+    @FXML
+    public void toWithdraw(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
+        Parent root = loader.load();
+        withdrawController withdrawCtrl = loader.getController();
+        withdrawCtrl.setCurrentAccount(cAcc);
+        super.switchToWithdrawScene(event, root);
+    }
+
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+        super.switchToLoginScene(event);
     }
 }
