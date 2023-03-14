@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("The banK");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("images/appLogo.png")));
