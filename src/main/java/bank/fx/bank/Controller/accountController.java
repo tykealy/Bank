@@ -10,16 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -27,18 +22,18 @@ public class accountController extends sceneController implements Initializable 
     @FXML
     public ChoiceBox<String> transactionType, accountSwitch;
     @FXML
-    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance, accountType;
+    private Label userIdLabel, depositLabel, withdrawLabel, receiverLabel, transferLabel, accountName, accountBalance,
+            accountType;
     @FXML
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     @FXML
     private ListView<String> transaction;
-//    protected int userId = CurrentUser.id;
+    // protected int userId = CurrentUser.id;
     Account cAcc;
     @FXML
     private double balance = 0, amt = 0, result = 0;
     private ResultSet rs;
-    private PreparedStatement ps;
-    String[] transactionChoice = {"Deposit", "Withdraw", "Transfer"};
+    String[] transactionChoice = { "Deposit", "Withdraw", "Transfer" };
     ArrayList<String> deposit = new ArrayList<>();
     ArrayList<String> withdraw = new ArrayList<>();
     ArrayList<String> transfer = new ArrayList<>();
@@ -98,20 +93,21 @@ public class accountController extends sceneController implements Initializable 
     }
 
     private void getAccount(ActionEvent event) {
-        int currentAccNo=0;
+        int currentAccNo = 0;
         try {
             currentAccNo = Integer.parseInt(accountSwitch.getValue());
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException ignored) {
+        }
         if (currentAccNo == 0) {
         } else {
             try {
-                ResultSet rs = Database.get("select * from account where account_number="+currentAccNo);
+                ResultSet rs = Database.get("select * from account where account_number=" + currentAccNo);
                 rs.absolute(1);
                 cAcc.account_number = rs.getInt("account_number");
                 cAcc.account_name = rs.getString("account_name");
                 cAcc.account_type = rs.getString("account_type");
                 cAcc.balance = rs.getDouble("balance");
-//                System.out.println(cAcc.account_number);
+                // System.out.println(cAcc.account_number);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -126,14 +122,16 @@ public class accountController extends sceneController implements Initializable 
                 deposit.clear();
                 try {
                     rs = Database.get("" +
-                            "SELECT account.account_number, account.account_name, deposit.amount, deposit.date, deposit.time FROM account " +
+                            "SELECT account.account_number, account.account_name, deposit.amount, deposit.date, deposit.time FROM account "
+                            +
                             "INNER JOIN deposit ON account.account_number=deposit.account_no " +
-                            "HAVING account_number=" + cAcc.account_number + " ORDER BY deposit.date DESC, deposit.time DESC;" +
+                            "HAVING account_number=" + cAcc.account_number
+                            + " ORDER BY deposit.date DESC, deposit.time DESC;" +
                             "");
                     while (rs.next()) {
                         if (deposit.size() < 10) {
                             deposit.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
-                                    + "\nDate: "+rs.getString(4)+" | Time: "+rs.getString(5));
+                                    + "\nDate: " + rs.getString(4) + " | Time: " + rs.getString(5));
                         } else {
                             break;
                         }
@@ -150,14 +148,16 @@ public class accountController extends sceneController implements Initializable 
                 withdraw.clear();
                 try {
                     rs = Database.get("" +
-                            "SELECT account.account_number, account.account_name, withdraw.amount, withdraw.date, withdraw.time FROM account " +
+                            "SELECT account.account_number, account.account_name, withdraw.amount, withdraw.date, withdraw.time FROM account "
+                            +
                             "INNER JOIN withdraw ON account.account_number=withdraw.account_no " +
-                            "HAVING account_number=" + cAcc.account_number + " ORDER BY withdraw.date DESC, withdraw.time DESC;" +
+                            "HAVING account_number=" + cAcc.account_number
+                            + " ORDER BY withdraw.date DESC, withdraw.time DESC;" +
                             "");
                     while (rs.next()) {
                         if (withdraw.size() < 10) {
                             withdraw.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
-                                    + "\nDate: "+rs.getString(4)+" | Time: "+rs.getString(5));
+                                    + "\nDate: " + rs.getString(4) + " | Time: " + rs.getString(5));
                         } else {
                             break;
                         }
@@ -175,24 +175,26 @@ public class accountController extends sceneController implements Initializable 
                 try {
                     int currentReceiverId;
                     String receiverName = null;
-                    rs = Database.get("SELECT account.account_number, account.account_name, transfer.amount, transfer.message," +
-                            " transfer.receiver_id , transfer.date, transfer.time FROM account " +
-                            "INNER JOIN transfer ON account.account_number=transfer.account_no " +
-                            "HAVING account_number="+cAcc.account_number+" ORDER BY transfer.date desc, transfer.time desc;");
+                    rs = Database.get(
+                            "SELECT account.account_number, account.account_name, transfer.amount, transfer.message," +
+                                    " transfer.receiver_id , transfer.date, transfer.time FROM account " +
+                                    "INNER JOIN transfer ON account.account_number=transfer.account_no " +
+                                    "HAVING account_number=" + cAcc.account_number
+                                    + " ORDER BY transfer.date desc, transfer.time desc;");
                     while (rs.next()) {
                         currentReceiverId = rs.getInt(5);
-                        ResultSet rs2 = Database.get("SELECT DISTINCT account.account_name, transfer.receiver_id FROM account " +
-                                "INNER JOIN transfer ON account.account_number=transfer.receiver_id " +
-                                "HAVING receiver_id=" + currentReceiverId);
+                        ResultSet rs2 = Database
+                                .get("SELECT DISTINCT account.account_name, transfer.receiver_id FROM account " +
+                                        "INNER JOIN transfer ON account.account_number=transfer.receiver_id " +
+                                        "HAVING receiver_id=" + currentReceiverId);
                         if (rs2.next()) {
                             receiverName = rs2.getString(1);
                         }
                         if (transfer.size() < 10) {
                             transfer.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
-                                    + "\nMessage: " +rs.getString(4)
-                                    + "\nDate: "+rs.getString(6)+" | Time: "+rs.getString(7) +
-                                    "\nReceiver: "+receiverName
-                                );
+                                    + "\nMessage: " + rs.getString(4)
+                                    + "\nDate: " + rs.getString(6) + " | Time: " + rs.getString(7) +
+                                    "\nReceiver: " + receiverName);
                         } else {
                             break;
                         }
