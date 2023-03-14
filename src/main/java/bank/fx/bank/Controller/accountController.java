@@ -51,6 +51,10 @@ public class accountController extends sceneController implements Initializable 
         cAcc = accounts.get(0);
     }
 
+    public void setCurrentUser(Account a) {
+        cAcc = a;
+    }
+
     public void getCurrentUser() throws SQLException {
         accounts = CurrentUser.getAccounts();
         accountSwitch.getItems().clear();
@@ -83,7 +87,6 @@ public class accountController extends sceneController implements Initializable 
 
     @FXML
     protected void displayInfo() throws SQLException {
-//        getCurrentUser();
         rs = Database.get("select account_name, balance, account_type " +
                 "from account " +
                 "where account_number=" + cAcc.account_number);
@@ -208,15 +211,6 @@ public class accountController extends sceneController implements Initializable 
     public void logout(ActionEvent event) throws IOException {
         super.switchToLoginScene(event);
     }
-
-//    @FXML
-//    public void toAccount(ActionEvent event) throws IOException, SQLException {
-//        FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
-//        Parent root = loader.load();
-//        accountController accountCtrl = loader.getController();
-//        accountCtrl.initializeUser();
-//        super.switchToAccScene(event,root);
-//    }
 
     @FXML
     public void toDeposit(ActionEvent event) throws IOException {

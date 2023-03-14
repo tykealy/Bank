@@ -76,20 +76,23 @@ public class withdrawController extends sceneController {
         }
     }
 
+    @FXML
     public void toAccount(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
         Parent root = loader.load();
         accountController accountCtrl = loader.getController();
-        accountCtrl.initializeUser();
+        accountCtrl.setCurrentUser(cAcc);
+        accountCtrl.getCurrentUser();
         super.switchToAccScene(event,root);
     }
 
+    @FXML
     public void toDeposit(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
         Parent root = loader.load();
         depositController depositCtrl = loader.getController();
         depositCtrl.setCurrentAccount(cAcc);
-        super.switchToWithdrawScene(event, root);
+        super.switchToDepositScene(event, root);
     }
 
     @FXML
