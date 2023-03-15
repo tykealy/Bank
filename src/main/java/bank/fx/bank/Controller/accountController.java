@@ -1,6 +1,7 @@
 package bank.fx.bank.Controller;
 
 import bank.fx.bank.Account;
+import bank.fx.bank.CurrentAccount;
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Main;
@@ -12,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,8 +59,8 @@ public class accountController extends sceneController implements Initializable 
         }
         try {
             accountSwitch.getItems().addAll(accountNumbers);
-            accountSwitch.setValue(String.valueOf(cAcc.account_number));
-            accountSwitch.setOnAction(this::getAccount);
+            accountSwitch.setValue(String.valueOf(CurrentAccount.account_number));
+            // accountSwitch.setOnAction(this::getAccount);
         } catch (NullPointerException e) {
             System.out.println("Don't mind me");
         }
@@ -74,7 +74,8 @@ public class accountController extends sceneController implements Initializable 
             transactionType.getItems().addAll(transactionChoice);
             transactionType.setOnAction(this::getData);
             accountSwitch.getItems().addAll(accountNumbers);
-            accountSwitch.setOnAction(this::getAccount);
+            // accountSwitch.setOnAction(this::getAccount);
+            accountSwitch.setValue(String.valueOf(CurrentAccount.account_number));
         } catch (NullPointerException ignored) {
             /* Just ignore it */
         }
@@ -82,16 +83,20 @@ public class accountController extends sceneController implements Initializable 
 
     @FXML
     protected void displayInfo() throws SQLException {
-        rs = Database.get("select account_name, balance, account_type " +
-                "from account " +
-                "where account_number=" + cAcc.account_number);
-        if (rs.next()) {
-            accountName.setText(rs.getString(1));
-            accountBalance.setText(" $" + rs.getDouble(2));
-            accountType.setText(rs.getString(3));
-        }
+        // rs = Database.get("select account_name, balance, account_type " +
+        // "from account " +
+        // "where account_number=" + cAcc.account_number);
+        // if (rs.next()) {
+        // accountName.setText(rs.getString(1));
+        // accountBalance.setText(" $" + rs.getDouble(2));
+        // accountType.setText(rs.getString(3));
+        // }
+        accountName.setText(CurrentAccount.account_name);
+        accountBalance.setText(" $" + CurrentAccount.balance);
+        accountType.setText(CurrentAccount.account_type);
     }
 
+    @FXML
     private void getAccount(ActionEvent event) {
         int currentAccNo = 0;
         try {
@@ -100,17 +105,16 @@ public class accountController extends sceneController implements Initializable 
         }
         if (currentAccNo == 0) {
         } else {
-            try {
-                ResultSet rs = Database.get("select * from account where account_number=" + currentAccNo);
-                rs.absolute(1);
-                cAcc.account_number = rs.getInt("account_number");
-                cAcc.account_name = rs.getString("account_name");
-                cAcc.account_type = rs.getString("account_type");
-                cAcc.balance = rs.getDouble("balance");
-                // System.out.println(cAcc.account_number);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            // ResultSet rs = Database.get("select * from account where account_number="
+            // currentAccNo);
+            // rs.absolute(1);
+            // cAcc.account_number = rs.getInt("account_number");
+            // cAcc.account_name = rs.getString("account_name");
+            // cAcc.account_type = rs.getString("account_type");
+            // cAcc.balance = rs.getDouble("balance");
+            CurrentAccount.setCurrentAccount(currentAccNo);
+            // System.out.println(cAcc.account_number);
+
         }
     }
 
