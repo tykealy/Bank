@@ -1,8 +1,12 @@
 package bank.fx.bank.Controller;
 
 import bank.fx.bank.Database;
+import bank.fx.bank.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -13,6 +17,9 @@ import java.util.Random;
 
 import bank.fx.bank.User;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.PopupWindow;
+import javafx.stage.Stage;
 
 public class signupController extends sceneController {
     @FXML
@@ -59,13 +66,19 @@ public class signupController extends sceneController {
                                 """;
         try {
             PreparedStatement stmt = Database.create(sqlString);
-            stmt.setInt(1, accNoGenerator());
+            int accNo = accNoGenerator();
+            String accName = user.firstName + " " + user.lastName;
+            stmt.setInt(1, accNo);
             stmt.setInt(2, id);
-            stmt.setString(3, user.firstName + " " + user.lastName);
+            stmt.setString(3, accName);
             stmt.setString(4, "Default");
             stmt.executeUpdate();
+            popupWindowController controller = new popupWindowController();
+            controller.popupCard(accNo, accName);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -13,8 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import bank.fx.bank.Account;
+import bank.fx.bank.CurrentAccount;
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Encryption;
@@ -44,8 +44,9 @@ public class LoginFormController extends sceneController {
     void SignIn(ActionEvent event) {
         int account_number = Integer.parseInt(accountNumber.getText());
         String user_password = txtPassword.getText();
-
-        if (accountNumber.getText().isBlank() == false && txtPassword.getText().isBlank() == false) {
+        if (accountNumber.getText().isBlank() || txtPassword.getText().isBlank()) {
+            lblErrors.setText("Please enter your account number and password!");
+        } else {
             try {
                 ResultSet rs = Database
                         .get("select user_id from account where account_number =  '" + account_number + "';");
@@ -57,20 +58,23 @@ public class LoginFormController extends sceneController {
                 rs.absolute(1);
                 String password = rs.getString("password");
                 String password_salt = rs.getString("password_salt");
+
                 if (Encryption.verifyUserPassword(user_password, password, password_salt)) {
+                    CurrentUser.setCurrentUser(rs);
+                    CurrentAccount.setCurrentAccount(account_number);
                     FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
                     Parent root = loader.load();
-                    CurrentUser.setCurrentUser(rs);
                     accountController accountCtrl = loader.getController();
                     accountCtrl.initializeUser();
+                    accountCtrl.getCurrentUser();
                     super.switchToAccScene(event, root);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
                 lblErrors.setText("Invalid login infomation.");
+            } catch (IOException e) {
+
             }
-        } else {
-            lblErrors.setText("Please enter your account number and password!");
+
         }
 
     }

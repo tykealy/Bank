@@ -73,8 +73,9 @@ public class depositController extends sceneController {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
         Parent root = loader.load();
         accountController accountCtrl = loader.getController();
-        accountCtrl.initializeUser();
-//        accountCtrl.getCurrentUser();
+//        accountCtrl.initializeUser();
+        accountCtrl.setCurrentUser(cAcc);
+        accountCtrl.getCurrentUser();
         super.switchToAccScene(event,root);
     }
 
