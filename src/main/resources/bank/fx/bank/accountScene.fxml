@@ -165,7 +165,7 @@
             prefWidth="290.0" style="-fx-background-color: rgb(245, 245, 245);"
             stylesheets="@CSS/transaction.css" />
          <ChoiceBox fx:id="transactionType" layoutX="195.0" layoutY="26.0" prefHeight="26.0"
-            prefWidth="89.0" />
+            prefWidth="89.0" onAction="#getData"/>
       </Pane>
       <Pane layoutX="319.0" layoutY="233.0" prefHeight="171.0" prefWidth="248.0"
          style="-fx-background-color: rgb(245, 245, 245); -fx-background-radius: 10, 10, 10, 10;">

@@ -1,6 +1,7 @@
 package bank.fx.bank.Controller;
 
 import bank.fx.bank.Account;
+import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Main;
 import javafx.event.ActionEvent;
@@ -26,27 +27,27 @@ public class depositController extends sceneController {
     public TextField depositAmount;
     @FXML
     public Label depositLabel;
-    private double balance = 0, amt = 0, result = 0;
+    private double result = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    Account cAcc;
-    public void setCurrentAccount(Account a) {
-        cAcc = a;
+    int cAccNo;
+    public void setCurrentAccount(int a) {
+        cAccNo = a;
     }
 
     @FXML
     protected void deposit() throws SQLException {
         try {
-            amt = Double.parseDouble(depositAmount.getText());
+            double amt = Double.parseDouble(depositAmount.getText());
             if (amt == 0) {
                 depositAmount.setText("");
                 depositLabel.setText("");
             } else {
-                ResultSet rs = Database.get("select balance from account where account_number=" + cAcc.account_number);
+                ResultSet rs = Database.get("select balance from account where account_number=" + cAccNo);
                 while (rs.next()) {
-                    balance = rs.getDouble(1);
+                    double balance = rs.getDouble(1);
                     result = balance + amt;
                 }
-                PreparedStatement ps = Database.set("update account set balance=? where account_number=" + cAcc.account_number);
+                PreparedStatement ps = Database.set("update account set balance=? where account_number=" + cAccNo);
                 ps.setDouble(1, result);
                 alert.setHeaderText("Deposit Amount: $" + amt);
 
@@ -56,8 +57,8 @@ public class depositController extends sceneController {
                     depositLabel.setText("Deposit Successfully");
                     depositAmount.setText("");
                     // add to deposit table
-                    ps = Database.set("insert into deposit(account_no, amount, date, time) " +
-                            "values (" + cAcc.account_number + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
+                    ps = Database.set("insert into deposit(user_id, account_no, amount, date, time) " +
+                            "values ("+ CurrentUser.id + ", " + cAccNo + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
                             LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                     ps.executeUpdate();
                 }
@@ -73,9 +74,9 @@ public class depositController extends sceneController {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
         Parent root = loader.load();
         accountController accountCtrl = loader.getController();
-//        accountCtrl.initializeUser();
-        accountCtrl.setCurrentUser(cAcc);
+        accountCtrl.setCurrentUser(cAccNo);
         accountCtrl.getCurrentUser();
+        accountCtrl.getCurrentDeposit();
         super.switchToAccScene(event,root);
     }
 
@@ -83,7 +84,7 @@ public class depositController extends sceneController {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("withdrawScene.fxml"));
         Parent root = loader.load();
         withdrawController withdrawCtrl = loader.getController();
-        withdrawCtrl.setCurrentAccount(cAcc);
+        withdrawCtrl.setCurrentAccount(cAccNo);
         super.switchToWithdrawScene(event, root);
     }
 

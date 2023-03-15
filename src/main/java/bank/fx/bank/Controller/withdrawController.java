@@ -1,9 +1,6 @@
 package bank.fx.bank.Controller;
 
-import bank.fx.bank.Account;
-import bank.fx.bank.CurrentUser;
-import bank.fx.bank.Database;
-import bank.fx.bank.Main;
+import bank.fx.bank.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,28 +24,28 @@ public class withdrawController extends sceneController {
     public TextField withdrawAmount;
     @FXML
     public Label withdrawLabel;
-    private double balance = 0, amt = 0, result = 0;
+    private double balance = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    Account cAcc;
-    public void setCurrentAccount(Account a) {
-        cAcc = a;
+    int cAccNo;
+    public void setCurrentAccount(int a) {
+        cAccNo = a;
     }
 
     @FXML
     protected void withdraw(ActionEvent event) throws SQLException {
         try {
-            amt = Double.parseDouble(withdrawAmount.getText());
+            double amt = Double.parseDouble(withdrawAmount.getText());
             if (amt == 0) {
                 withdrawAmount.setText("");
                 withdrawLabel.setText("");
             } else {
-                ResultSet rs = Database.get("select balance from account where account_number=" + cAcc.account_number);
+                ResultSet rs = Database.get("select balance from account where account_number=" + cAccNo);
                 while (rs.next()) {
                     balance = rs.getDouble(1);
                 }
                 if (amt <= balance) {
-                    result = balance - amt;
-                    PreparedStatement ps = Database.set("update account set balance=? where account_number=" + cAcc.account_number);
+                    double result = balance - amt;
+                    PreparedStatement ps = Database.set("update account set balance=? where account_number=" + cAccNo);
                     ps.setDouble(1, result);
                     alert.setHeaderText("Withdrawn Amount: $" + amt);
 
@@ -59,7 +56,7 @@ public class withdrawController extends sceneController {
                         withdrawAmount.setText("");
                         /* add to withdraw table */
                         ps = Database.set("insert into withdraw(user_id, account_no, amount, date, time) " +
-                                "values (" + CurrentUser.id + ", " + cAcc.account_number + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
+                                "values (" + CurrentUser.id + ", " + cAccNo + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
                                 LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                         ps.executeUpdate();
                     }
@@ -81,8 +78,9 @@ public class withdrawController extends sceneController {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
         Parent root = loader.load();
         accountController accountCtrl = loader.getController();
-        accountCtrl.setCurrentUser(cAcc);
+        accountCtrl.setCurrentUser(cAccNo);
         accountCtrl.getCurrentUser();
+        accountCtrl.getCurrentDeposit();
         super.switchToAccScene(event,root);
     }
 
@@ -91,7 +89,7 @@ public class withdrawController extends sceneController {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
         Parent root = loader.load();
         depositController depositCtrl = loader.getController();
-        depositCtrl.setCurrentAccount(cAcc);
+        depositCtrl.setCurrentAccount(cAccNo);
         super.switchToDepositScene(event, root);
     }
 
