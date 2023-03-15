@@ -67,6 +67,7 @@ public class LoginFormController extends sceneController {
                     accountController accountCtrl = loader.getController();
                     accountCtrl.initializeUser();
                     accountCtrl.getCurrentUser();
+                    accountCtrl.getCurrentDeposit();
                     super.switchToAccScene(event, root);
                 }
             } catch (SQLException e) {

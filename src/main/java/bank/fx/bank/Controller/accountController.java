@@ -28,11 +28,8 @@ public class accountController extends sceneController implements Initializable 
     private TextField transferMessage, depositAmount, withdrawAmount, transferAmount, receiverNo;
     @FXML
     private ListView<String> transaction;
-    // protected int userId = CurrentUser.id;
     Account cAcc;
-    @FXML
-    private double balance = 0, amt = 0, result = 0;
-    private ResultSet rs;
+    int cAccNo;
     String[] transactionChoice = { "Deposit", "Withdraw", "Transfer" };
     ArrayList<String> deposit = new ArrayList<>();
     ArrayList<String> withdraw = new ArrayList<>();
@@ -46,8 +43,8 @@ public class accountController extends sceneController implements Initializable 
         cAcc = accounts.get(0);
     }
 
-    public void setCurrentUser(Account a) {
-        cAcc = a;
+    public void setCurrentUser(int a) {
+        cAccNo = a;
     }
 
     public void getCurrentUser() throws SQLException {
@@ -60,7 +57,6 @@ public class accountController extends sceneController implements Initializable 
         try {
             accountSwitch.getItems().addAll(accountNumbers);
             accountSwitch.setValue(String.valueOf(CurrentAccount.account_number));
-            // accountSwitch.setOnAction(this::getAccount);
         } catch (NullPointerException e) {
             System.out.println("Don't mind me");
         }
@@ -72,25 +68,14 @@ public class accountController extends sceneController implements Initializable 
         alert.setContentText("Please confirm the transaction");
         try {
             transactionType.getItems().addAll(transactionChoice);
-            transactionType.setOnAction(this::getData);
+            transactionType.setValue("Deposit");
             accountSwitch.getItems().addAll(accountNumbers);
-            // accountSwitch.setOnAction(this::getAccount);
             accountSwitch.setValue(String.valueOf(CurrentAccount.account_number));
-        } catch (NullPointerException ignored) {
-            /* Just ignore it */
-        }
+        } catch (NullPointerException ignored) {}
     }
 
     @FXML
     protected void displayInfo() throws SQLException {
-        // rs = Database.get("select account_name, balance, account_type " +
-        // "from account " +
-        // "where account_number=" + cAcc.account_number);
-        // if (rs.next()) {
-        // accountName.setText(rs.getString(1));
-        // accountBalance.setText(" $" + rs.getDouble(2));
-        // accountType.setText(rs.getString(3));
-        // }
         accountName.setText(CurrentAccount.account_name);
         accountBalance.setText(" $" + CurrentAccount.balance);
         accountType.setText(CurrentAccount.account_type);
@@ -103,23 +88,21 @@ public class accountController extends sceneController implements Initializable 
             currentAccNo = Integer.parseInt(accountSwitch.getValue());
         } catch (NumberFormatException ignored) {
         }
-        if (currentAccNo == 0) {
-        } else {
-            // ResultSet rs = Database.get("select * from account where account_number="
-            // currentAccNo);
-            // rs.absolute(1);
-            // cAcc.account_number = rs.getInt("account_number");
-            // cAcc.account_name = rs.getString("account_name");
-            // cAcc.account_type = rs.getString("account_type");
-            // cAcc.balance = rs.getDouble("balance");
+        if (currentAccNo != 0) {
             CurrentAccount.setCurrentAccount(currentAccNo);
-            // System.out.println(cAcc.account_number);
-
+            try {
+                displayInfo();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            getCurrentDeposit();
         }
     }
 
+    @FXML
     private void getData(ActionEvent event) {
         String choice = transactionType.getValue();
+        ResultSet rs;
         switch (choice) {
             case "Deposit" -> {
                 transaction.getItems().clear();
@@ -129,7 +112,7 @@ public class accountController extends sceneController implements Initializable 
                             "SELECT account.account_number, account.account_name, deposit.amount, deposit.date, deposit.time FROM account "
                             +
                             "INNER JOIN deposit ON account.account_number=deposit.account_no " +
-                            "HAVING account_number=" + cAcc.account_number
+                            "HAVING account_number=" + CurrentAccount.account_number
                             + " ORDER BY deposit.date DESC, deposit.time DESC;" +
                             "");
                     while (rs.next()) {
@@ -155,7 +138,7 @@ public class accountController extends sceneController implements Initializable 
                             "SELECT account.account_number, account.account_name, withdraw.amount, withdraw.date, withdraw.time FROM account "
                             +
                             "INNER JOIN withdraw ON account.account_number=withdraw.account_no " +
-                            "HAVING account_number=" + cAcc.account_number
+                            "HAVING account_number=" + CurrentAccount.account_number
                             + " ORDER BY withdraw.date DESC, withdraw.time DESC;" +
                             "");
                     while (rs.next()) {
@@ -183,7 +166,7 @@ public class accountController extends sceneController implements Initializable 
                             "SELECT account.account_number, account.account_name, transfer.amount, transfer.message," +
                                     " transfer.receiver_id , transfer.date, transfer.time FROM account " +
                                     "INNER JOIN transfer ON account.account_number=transfer.account_no " +
-                                    "HAVING account_number=" + cAcc.account_number
+                                    "HAVING account_number=" + CurrentAccount.account_number
                                     + " ORDER BY transfer.date desc, transfer.time desc;");
                     while (rs.next()) {
                         currentReceiverId = rs.getInt(5);
@@ -213,6 +196,31 @@ public class accountController extends sceneController implements Initializable 
         }
     }
 
+    public void getCurrentDeposit() {
+        transaction.getItems().clear();
+        deposit.clear();
+        try {
+            ResultSet rs = Database.get("" +
+                    "SELECT account.account_number, account.account_name, deposit.amount, deposit.date, deposit.time FROM account "
+                    +
+                    "INNER JOIN deposit ON account.account_number=deposit.account_no " +
+                    "HAVING account_number=" + CurrentAccount.account_number
+                    + " ORDER BY deposit.date DESC, deposit.time DESC;" +
+                    "");
+            while (rs.next()) {
+                if (deposit.size() < 10) {
+                    deposit.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
+                            + "\nDate: " + rs.getString(4) + " | Time: " + rs.getString(5));
+                } else {
+                    break;
+                }
+            }
+            transaction.getItems().addAll(deposit);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     public void logout(ActionEvent event) throws IOException {
         super.switchToLoginScene(event);
@@ -223,7 +231,7 @@ public class accountController extends sceneController implements Initializable 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
         Parent root = loader.load();
         depositController depositCtrl = loader.getController();
-        depositCtrl.setCurrentAccount(cAcc);
+        depositCtrl.setCurrentAccount(CurrentAccount.account_number);
         super.switchToDepositScene(event, root);
     }
 
@@ -232,7 +240,7 @@ public class accountController extends sceneController implements Initializable 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("withdrawScene.fxml"));
         Parent root = loader.load();
         withdrawController withdrawCtrl = loader.getController();
-        withdrawCtrl.setCurrentAccount(cAcc);
+        withdrawCtrl.setCurrentAccount(CurrentAccount.account_number);
         super.switchToWithdrawScene(event, root);
     }
 }

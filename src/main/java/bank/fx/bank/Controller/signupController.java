@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -17,9 +16,6 @@ import java.util.Random;
 
 import bank.fx.bank.User;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.PopupWindow;
-import javafx.stage.Stage;
 
 public class signupController extends sceneController {
     @FXML
@@ -73,8 +69,11 @@ public class signupController extends sceneController {
             stmt.setString(3, accName);
             stmt.setString(4, "Default");
             stmt.executeUpdate();
-            popupWindowController controller = new popupWindowController();
-            controller.popupCard(accNo, accName);
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
+            Parent root = loader.load();
+            popupWindowController controller = loader.getController();
+            controller.popupCard(root);
+            controller.setCardInfo(accNo, accName);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -110,8 +109,7 @@ public class signupController extends sceneController {
                 }
                 ageField.setText("");
             }
-        } catch (NumberFormatException ignored) {
-        }
+        } catch (NumberFormatException ignored) {}
         if (passwordField.getText().length() < 8) {
             errorPassword.setTextFill(Color.RED);
             if (passwordField.getText().isBlank()) {
