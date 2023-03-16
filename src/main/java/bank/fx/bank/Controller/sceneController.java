@@ -25,7 +25,6 @@ public class sceneController {
     }
 
     public void switchToAccScene(ActionEvent event, Parent root) throws IOException {
-        // root = FXMLLoader.load(Main.class.getResource("testAccountScene.fxml"));
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);
@@ -49,7 +48,6 @@ public class sceneController {
     }
 
     public void switchToDepositScene(ActionEvent event, Parent root) throws IOException {
-//        root = FXMLLoader.load(Main.class.getResource("depositScene.fxml"));
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);
@@ -57,7 +55,6 @@ public class sceneController {
     }
 
     public void switchToWithdrawScene(ActionEvent event, Parent root) throws IOException {
-//        root = FXMLLoader.load(Main.class.getResource("withdrawScene.fxml"));
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);
@@ -65,7 +62,13 @@ public class sceneController {
     }
 
     public void switchToTransferScene(ActionEvent event, Parent root) throws IOException {
-//        root = FXMLLoader.load(Main.class.getResource("withdrawScene.fxml"));
+        stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    protected void switchToCreateAccountScene(ActionEvent event, Parent root) {
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);
@@ -76,5 +79,4 @@ public class sceneController {
         stage = (Stage) pane.getScene().getWindow();
         stage.close();
     }
-
 }

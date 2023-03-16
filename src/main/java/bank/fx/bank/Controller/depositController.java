@@ -26,12 +26,13 @@ public class depositController extends sceneController {
     @FXML
     public TextField depositAmount;
     @FXML
-    public Label depositLabel;
+    public Label depositLabel, currentAccNo;
     private double result = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     int cAccNo;
     public void setCurrentAccount(int a) {
         cAccNo = a;
+        currentAccNo.setText(String.valueOf(cAccNo));
     }
 
     @FXML

@@ -1,8 +1,15 @@
 package bank.fx.bank;
 
+import bank.fx.bank.Controller.popupWindowController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Account {
     public int account_number;
@@ -10,6 +17,7 @@ public class Account {
     public String account_type;
     public Double balance;
     public int is_active;
+    private static final Random rand = new Random();
 
     public Account(String account_name, int account_number, String account_type, Double balance, int is_active) {
         this.account_name = account_name;
@@ -25,7 +33,7 @@ public class Account {
         while (accountSet.next()) {
             i++;
         }
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Account> accounts = new ArrayList<>();
         while (i > 0) {
             accountSet.absolute(i);
             String account_name = accountSet.getString("account_name");
@@ -38,5 +46,19 @@ public class Account {
             i--;
         }
         return accounts;
+    }
+
+    public static int accNoGenerator() throws SQLException {
+        int exist, val = rand.nextInt(90000000) + 10000000;
+//        Database.grab("SELECT account_number FROM `bank_management`.`account`");
+        ResultSet rs = Database.grab("SELECT account_number FROM `bank_management`.`account`");
+        while (rs.next()) {
+            exist = rs.getInt("account_number");
+            if (exist == val) {
+                val = rand.nextInt(90000000) + 10000000;
+                rs.beforeFirst();
+            }
+        }
+        return val;
     }
 }
