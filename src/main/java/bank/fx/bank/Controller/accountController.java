@@ -127,7 +127,7 @@ public class accountController extends sceneController implements Initializable 
                             "");
                     while (rs.next()) {
                         if (deposit.size() < 10) {
-                            deposit.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
+                            deposit.add("Name: " + rs.getString(2) + "\nAmount: $" + rs.getDouble(3)
                                     + "\nDate: " + rs.getString(4) + " | Time: " + rs.getString(5));
                         } else {
                             break;
@@ -153,7 +153,7 @@ public class accountController extends sceneController implements Initializable 
                             "");
                     while (rs.next()) {
                         if (withdraw.size() < 10) {
-                            withdraw.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
+                            withdraw.add("Name: " + rs.getString(2) + "\nAmount: $" + rs.getDouble(3)
                                     + "\nDate: " + rs.getString(4) + " | Time: " + rs.getString(5));
                         } else {
                             break;
@@ -188,7 +188,7 @@ public class accountController extends sceneController implements Initializable 
                             receiverName = rs2.getString(1);
                         }
                         if (transfer.size() < 10) {
-                            transfer.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
+                            transfer.add("Name: " + rs.getString(2) + "\nAmount: $" + rs.getDouble(3)
                                     + "\nMessage: " + rs.getString(4)
                                     + "\nDate: " + rs.getString(6) + " | Time: " + rs.getString(7) +
                                     "\nReceiver: " + receiverName);
@@ -219,7 +219,7 @@ public class accountController extends sceneController implements Initializable 
                     "");
             while (rs.next()) {
                 if (deposit.size() < 10) {
-                    deposit.add("Name: " + rs.getString(2) + "    | Amount: $" + rs.getDouble(3)
+                    deposit.add("Name: " + rs.getString(2) + "\nAmount: $" + rs.getDouble(3)
                             + "\nDate: " + rs.getString(4) + " | Time: " + rs.getString(5));
                 } else {
                     break;
