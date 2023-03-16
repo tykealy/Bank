@@ -1,6 +1,5 @@
 package bank.fx.bank.Controller;
 
-import bank.fx.bank.Account;
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Main;

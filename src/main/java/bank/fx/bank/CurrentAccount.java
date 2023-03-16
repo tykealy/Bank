@@ -1,7 +1,6 @@
 package bank.fx.bank;
 
 import java.sql.ResultSet;
-
 public class CurrentAccount {
     public static int account_number;
     public static String account_name, account_type;

@@ -4,15 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import bank.fx.bank.CurrentAccount;
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
@@ -62,7 +59,8 @@ public class LoginFormController extends sceneController {
                 }
             } catch (SQLException e) {
                 lblErrors.setText("Invalid login information.");
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
     }
 

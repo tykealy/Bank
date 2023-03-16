@@ -1,11 +1,5 @@
 package bank.fx.bank;
 
-import bank.fx.bank.Controller.popupWindowController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-
-import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,7 +44,7 @@ public class Account {
 
     public static int accNoGenerator() throws SQLException {
         int exist, val = rand.nextInt(90000000) + 10000000;
-//        Database.grab("SELECT account_number FROM `bank_management`.`account`");
+        // Database.grab("SELECT account_number FROM `bank_management`.`account`");
         ResultSet rs = Database.grab("SELECT account_number FROM `bank_management`.`account`");
         while (rs.next()) {
             exist = rs.getInt("account_number");
