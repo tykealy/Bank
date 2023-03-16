@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import java.net.URL?>
-        <?import javafx.geometry.Insets?>
-        <?import javafx.scene.control.Button?>
-        <?import javafx.scene.control.ChoiceBox?>
-        <?import javafx.scene.control.Label?>
-        <?import javafx.scene.control.TextField?>
-        <?import javafx.scene.effect.DropShadow?>
-        <?import javafx.scene.image.Image?>
-        <?import javafx.scene.image.ImageView?>
-        <?import javafx.scene.layout.AnchorPane?>
-        <?import javafx.scene.layout.Pane?>
-        <?import javafx.scene.layout.VBox?>
-        <?import javafx.scene.paint.Color?>
-        <?import javafx.scene.shape.Line?>
-        <?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="510.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.transferController">
     <children>
         <Pane layoutX="301.0" layoutY="24.0" prefHeight="631.0" prefWidth="527.0" styleClass="title_container" stylesheets="@CSS/dashboard.css">
             <children>
-                <ChoiceBox fx:id="senderChoice" layoutX="101.0" layoutY="169.0" prefHeight="39.0" prefWidth="344.0" />
-                <TextField fx:id="receiverField" layoutX="107.0" layoutY="242.0" prefHeight="39.0" prefWidth="332.0" promptText="Enter receiver account number" stylesheets="@CSS/dashboard.css" />
-                <TextField fx:id="amountField" layoutX="108.0" layoutY="303.0" prefHeight="39.0" prefWidth="332.0" promptText="Amount" />
-                <TextField fx:id="messageField" layoutX="108.0" layoutY="367.0" prefHeight="39.0" prefWidth="332.0" promptText="Message (Optional)" />
-                <Button fx:id="transferButton" layoutX="107.0" layoutY="456.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="332.0" styleClass="text_logout" stylesheets="@CSS/dashboard.css" text="Transfer">
+                <ChoiceBox fx:id="accountTypeChoice" layoutX="108.0" layoutY="169.0" prefHeight="39.0" prefWidth="344.0" />
+                <TextField fx:id="receiverNo" layoutX="107.0" layoutY="242.0" prefHeight="39.0" prefWidth="332.0" promptText="Enter receiver account number" stylesheets="@CSS/dashboard.css" />
+                <TextField fx:id="transferAmount" layoutX="108.0" layoutY="303.0" prefHeight="39.0" prefWidth="332.0" promptText="Amount" />
+                <TextField fx:id="transferMessage" layoutX="108.0" layoutY="367.0" prefHeight="39.0" prefWidth="332.0" promptText="Message (Optional)" />
+                <Button fx:id="transferButton" layoutX="107.0" layoutY="456.0" mnemonicParsing="false" onAction="#toPopupConfirmTransfer" prefHeight="31.0" prefWidth="332.0" styleClass="text_logout" stylesheets="@CSS/dashboard.css" text="Transfer">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -51,11 +51,12 @@
             <children>
                 <AnchorPane prefHeight="635.0" prefWidth="227.0">
                     <children>
+                        <Pane layoutX="24.0" layoutY="16.0" prefHeight="66.0" prefWidth="188.0" style="-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, rgba(74,141,222,1) 2%, rgba(37,87,218,1) 45%); -fx-background-radius: 10;" />
                         <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="236.0" stylesheets="@CSS/dashboard.css">
                             <children>
                                 <ImageView fitHeight="75.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                                     <VBox.margin>
-                                        <Insets top="25.0" />
+                                        <Insets top="20.0" />
                                     </VBox.margin>
                                     <image>
                                         <Image url="@images/logo.png" />
@@ -63,9 +64,9 @@
                                 </ImageView>
                             </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" layoutY="115.0" prefHeight="519.0" prefWidth="236.0" styleClass="menu_container" stylesheets="@CSS/dashboard.css">
+                        <VBox alignment="TOP_CENTER" layoutY="116.0" prefHeight="519.0" prefWidth="236.0" styleClass="menu_container" stylesheets="@CSS/dashboard.css">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#displayInfo" prefHeight="31.0" prefWidth="147.0" styleClass="currentButton" stylesheets="@CSS/dashboard.css" text="Account ">
+                                <Button mnemonicParsing="false" onAction="#toAccount" prefHeight="31.0" prefWidth="147.0" stylesheets="@CSS/dashboard.css" text="Account ">
                                     <graphic>
                                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -80,7 +81,7 @@
                                         <Insets />
                                     </VBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" text="Deposit">
+                                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" styleClass="currentButton" text="Deposit">
                                     <graphic>
                                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -89,7 +90,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                                <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" text="Withdraw">
+                                <Button mnemonicParsing="false" onAction="#toWithdraw" prefHeight="33.0" prefWidth="119.0" text="Withdraw">
                                     <graphic>
                                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
