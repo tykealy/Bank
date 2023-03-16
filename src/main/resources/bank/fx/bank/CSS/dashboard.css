@@ -52,6 +52,12 @@
     -fx-background-color:rgb(21,123,241);
 }
 
+.confirmBtn:hover{
+    -fx-cursor:hand;
+    -fx-text-fill:white;
+    -fx-background-color:rgb(21,123,241);
+}
+
 .text_logout{
 
     -fx-alignment:center;
@@ -59,6 +65,7 @@
 }
 
 .text_logout:hover{
+    -fx-cursor: hand;
     -fx-alignment:center;
     -fx-background-color:rgb(21,123,260);
 }

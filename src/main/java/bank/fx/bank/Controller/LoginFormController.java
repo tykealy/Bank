@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -21,22 +20,10 @@ import bank.fx.bank.Encryption;
 import bank.fx.bank.Main;
 
 public class LoginFormController extends sceneController {
-
     @FXML
     private TextField accountNumber;
-
     @FXML
-    private Label btnForgot;
-
-    @FXML
-    private Button btnSignin;
-
-    @FXML
-    private Button btnSignup;
-
-    @FXML
-    private Label lblErrors;
-
+    private Label btnForgot, lblErrors;
     @FXML
     private PasswordField txtPassword;
 
@@ -69,21 +56,14 @@ public class LoginFormController extends sceneController {
                     accountCtrl.getCurrentUser();
                     accountCtrl.getCurrentDeposit();
                     super.switchToAccScene(event, root);
+                } else {
+                    lblErrors.setText("Password does not match!");
+                    txtPassword.setText("");
                 }
             } catch (SQLException e) {
                 lblErrors.setText("Invalid login information.");
             } catch (IOException ignored) {}
         }
-    }
-
-    public void btnSignup(ActionEvent e) {
-
-        Stage stage = (Stage) btnSignup.getScene().getWindow();
-        stage.close();
-    }
-
-    public void invalidateLogin() {
-
     }
 
     public void switchToRegister(ActionEvent event) throws IOException {

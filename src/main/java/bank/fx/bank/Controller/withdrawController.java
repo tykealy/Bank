@@ -109,4 +109,7 @@ public class withdrawController extends sceneController {
         Parent root = loader.load();
         super.switchToTransferScene(event, root);
     }
+
+    public void toProfile(ActionEvent event) {
+    }
 }
