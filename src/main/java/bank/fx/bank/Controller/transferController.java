@@ -4,26 +4,28 @@ import bank.fx.bank.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ResourceBundle;
 
-public class transferController extends sceneController{
+public class transferController extends sceneController implements Initializable {
     @FXML
     TextField transferAmount, receiverNo, transferMessage;
     @FXML
     Label transferLabel, receiverLabel;
+    @FXML
+    ChoiceBox <String>  accountTypeChoice;
     ResultSet rs; PreparedStatement ps;
     int cAccNo;
     private double balance = 0;
@@ -32,7 +34,10 @@ public class transferController extends sceneController{
     public void setCurrentAccount(int a) {
         cAccNo = a;
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
     @FXML
     public void transfer() throws SQLException {
         String username;
@@ -143,4 +148,17 @@ public class transferController extends sceneController{
     public void logout(ActionEvent event) throws IOException {
         super.switchToLoginScene(event);
     }
+
+    @FXML
+    public void toPopupConfirmTransfer() throws IOException{
+        double amount = Double.parseDouble(transferAmount.getText());
+        String receiver = receiverNo.getText();
+        String receiverName = "Sengheng";
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("confirmTransferScene.fxml"));
+        Parent root = loader.load();
+        confirmTransferController controller = loader.getController();
+        controller.popupConfirmTransfer(root);
+        controller.setTransferInfo(amount,receiver,receiverName);
+    }
+
 }
