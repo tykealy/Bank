@@ -30,10 +30,11 @@ public class accountController extends sceneController implements Initializable 
     private ListView<String> transaction;
     Account cAcc;
     int cAccNo;
-    String[] transactionChoice = { "Deposit", "Withdraw", "Transfer" };
+    String[] transactionChoice = { "Deposit", "Withdraw", "Transfer", "Receive"};
     ArrayList<String> deposit = new ArrayList<>();
     ArrayList<String> withdraw = new ArrayList<>();
     ArrayList<String> transfer = new ArrayList<>();
+    ArrayList<String> receive = new ArrayList<>();
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     ArrayList<Account> accounts;
     ArrayList<String> accountNumbers;
@@ -197,6 +198,31 @@ public class accountController extends sceneController implements Initializable 
                         }
                     }
                     transaction.getItems().addAll(transfer);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (NullPointerException e) {
+                    System.out.println("Sh*t Not Again!");
+                }
+            }
+            case "Receive" -> {
+                transaction.getItems().clear();
+                receive.clear();
+                try {
+                    rs = Database
+                            .get("SELECT account_no, amount, message, sender, date, time " +
+                                    "FROM receive where account_no="+CurrentAccount.account_number
+                                    + " ORDER BY date DESC, time DESC;");
+                    while (rs.next()) {
+                        if (receive.size() < 10) {
+                            receive.add("Sender: " + rs.getString("sender") +
+                                    "\nAmount: $" + rs.getDouble("amount") +
+                                    "\nMessage: " + rs.getString("message") +
+                                    "\nDate: " + rs.getString("date") + " | Time: " + rs.getString("time"));
+                        } else {
+                            break;
+                        }
+                    }
+                    transaction.getItems().addAll(receive);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 } catch (NullPointerException e) {

@@ -119,4 +119,19 @@ INSERT INTO `bank_management`.`transfer` (`transfer_id`,`user_id`,`message`,`amo
 INSERT INTO `bank_management`.`transfer` (`transfer_id`,`user_id`,`message`,`amount`,`receiver_id`,`date`,`time`) VALUES ('2','2','Good morning Yay!','225','3','2023-03-10','15:56:19');
 ```
 
+create a table name "receive"
+
+```mysql
+create table receive {
+id int auto_increment,
+account_no int,
+amount double not null default 0,
+message text,
+sender varchar(255),
+date date,
+time time,
+primary key(id) 
+};
+```
+
 run the project to see if the input data appear in the terminal;

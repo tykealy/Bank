@@ -24,7 +24,7 @@ public class transferController extends sceneController {
     @FXML
     ChoiceBox<String> accountTypeChoice;
     ResultSet rs;
-    PreparedStatement ps;
+    PreparedStatement ps, ps2;
     int cAccNo, receiver;
     private double balance = 0;
     boolean confirmation;
@@ -135,6 +135,15 @@ public class transferController extends sceneController {
                                                 ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
                                                 LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                                 ps.executeUpdate();
+                                ps2 = Database.set(
+                                        "insert into receive(account_no, message, amount, sender, date, time) "
+                                                +
+                                                "values (" + receiver
+                                                + ", \""
+                                                + transferMessage.getText() + "\", " + amt +
+                                                ", \"" + CurrentAccount.account_name + "\", \"" + LocalDate.now() + "\", \"" +
+                                                LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
+                                ps2.executeUpdate();
                                 transferMessage.setText("");
                             }
                         } else {
