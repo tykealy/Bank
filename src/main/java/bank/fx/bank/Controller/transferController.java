@@ -33,7 +33,6 @@ public class transferController extends sceneController {
 
     public void setCurrentAccount(int a) {
         cAccNo = a;
-//        System.out.println(cAccNo);
     }
 
     public void setAccountSwitch() throws SQLException {
@@ -61,7 +60,6 @@ public class transferController extends sceneController {
         if (currentAccNo != 0) {
             CurrentAccount.setCurrentAccount(currentAccNo);
         }
-//        System.out.println(CurrentAccount.account_number);
     }
 
     @FXML
@@ -90,13 +88,15 @@ public class transferController extends sceneController {
                     } else {
                         /* remove balance */
                         username = rs.getString(2);
-                        rs = Database.get("select balance from account where account_number=" + CurrentAccount.account_number);
+                        rs = Database.get(
+                                "select balance from account where account_number=" + CurrentAccount.account_number);
                         while (rs.next()) {
                             balance = rs.getDouble(1);
                         }
                         if (amt <= balance) {
                             double result = balance - amt;
-                            ps = Database.set("update account set balance=? where account_number=" + CurrentAccount.account_number);
+                            ps = Database.set("update account set balance=? where account_number="
+                                    + CurrentAccount.account_number);
                             ps.setDouble(1, result);
                             try {
                                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("confirmTransferScene.fxml"));
@@ -129,7 +129,8 @@ public class transferController extends sceneController {
                                 ps = Database.set(
                                         "insert into transfer(user_id, account_no, message, amount, receiver_id, date, time) "
                                                 +
-                                                "values (" + CurrentUser.id + ", " + CurrentAccount.account_number + ", \""
+                                                "values (" + CurrentUser.id + ", " + CurrentAccount.account_number
+                                                + ", \""
                                                 + transferMessage.getText() + "\", " + amt +
                                                 ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
                                                 LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");

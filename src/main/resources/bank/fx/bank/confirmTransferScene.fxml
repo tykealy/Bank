@@ -8,37 +8,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="512.0" prefWidth="356.0" style="-fx-background-color: #eeee;" styleClass="left_container" stylesheets="@CSS/dashbaord.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.confirmTransferController">
+<AnchorPane fx:id="anchorPane" prefHeight="512.0" prefWidth="432.0" style="-fx-background-color: #eeee;" styleClass="left_container" stylesheets="@CSS/dashbaord.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.confirmTransferController">
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancel" style="-fx-cursor: hand;" styleClass="deposit, confirmBtn" stylesheets="@CSS/dashboard.css" text="Cancel" />
-        <Button fx:id="confirmBtn" layoutX="97.0" layoutY="425.0" mnemonicParsing="false" onAction="#confirm" prefHeight="31.0" prefWidth="166.0" style="-fx-cursor: hand;" styleClass="deposit, confirmBtn" stylesheets="@CSS/dashboard.css" text="Confirm" />
-        <ImageView fitHeight="90.0" fitWidth="133.0" layoutX="133.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+        <Button layoutX="228.0" layoutY="427.0" mnemonicParsing="false" onAction="#cancel" prefHeight="31.0" prefWidth="166.0" style="-fx-cursor: hand;" styleClass="deposit, confirmBtn" stylesheets="@CSS/dashboard.css" text="Cancel" textFill="#e80d0d" />
+        <Button fx:id="confirmBtn" layoutX="40.0" layoutY="427.0" mnemonicParsing="false" onAction="#confirm" prefHeight="31.0" prefWidth="166.0" style="-fx-cursor: hand;" styleClass="deposit, confirmBtn" stylesheets="@CSS/dashboard.css" text="Confirm" textFill="#34bc93" />
+        <ImageView fitHeight="90.0" fitWidth="133.0" layoutX="171.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/transfer.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="83.0" layoutY="146.0" text="You are about to transfer">
+        <Label alignment="CENTER" layoutX="139.0" layoutY="151.0" text="You are about to transfer">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Label fx:id="amountConfirm" alignment="CENTER" layoutX="141.0" layoutY="187.0" prefHeight="27.0" prefWidth="75.0">
+        <Label fx:id="amountConfirm" alignment="CENTER" contentDisplay="CENTER" layoutX="132.0" layoutY="186.0" prefHeight="27.0" prefWidth="173.0" text="100000" textFill="#5090ff">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Separator layoutX="2.0" layoutY="253.0" prefHeight="0.0" prefWidth="356.0" />
-        <Label alignment="CENTER" layoutX="153.0" layoutY="242.0" prefHeight="21.0" prefWidth="54.0" styleClass="logo" stylesheets="@CSS/dashbaord.css" text="to">
+        <Separator layoutX="2.0" layoutY="255.0" prefHeight="1.0" prefWidth="432.0" />
+        <Label alignment="CENTER" layoutX="189.0" layoutY="234.0" prefHeight="21.0" prefWidth="54.0" styleClass="logo" stylesheets="@CSS/dashbaord.css" text="to">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Label fx:id="accountNoConfirm" alignment="CENTER" layoutX="93.0" layoutY="270.0" prefHeight="21.0" prefWidth="173.0">
+        <Label fx:id="accountNoConfirm" alignment="CENTER" contentDisplay="CENTER" layoutX="130.0" layoutY="280.0" prefHeight="21.0" prefWidth="173.0" text="35939" textFill="#5090ff">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Label fx:id="receiverConfirm" alignment="CENTER" layoutX="41.0" layoutY="312.0" prefHeight="31.0" prefWidth="289.0" styleClass="left_container" stylesheets="@CSS/dashbaord.css">
+        <Label fx:id="receiverConfirm" alignment="CENTER" layoutX="72.0" layoutY="349.0" prefHeight="31.0" prefWidth="289.0" styleClass="left_container" stylesheets="@CSS/dashbaord.css" text="Tykea Ly" textFill="#5090ff">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
