@@ -68,6 +68,9 @@ public class transferController extends sceneController {
             if (transferAmount.getText().equals("")) {
                 transferLabel.setTextFill(Color.RED);
                 transferLabel.setText("Specify an amount");
+            } else if (transferAmount.getText().equals("0")) {
+                transferLabel.setTextFill(Color.RED);
+                transferLabel.setText("Amount can't be 0");
             } else if (receiverNo.getText().equals("")) {
                 receiverLabel.setTextFill(Color.RED);
                 receiverLabel.setText("Specify the receiver");
