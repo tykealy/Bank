@@ -1,5 +1,6 @@
 package bank.fx.bank.Controller;
 
+import bank.fx.bank.CurrentAccount;
 import bank.fx.bank.CurrentUser;
 import bank.fx.bank.Database;
 import bank.fx.bank.Main;
@@ -12,7 +13,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -95,10 +95,12 @@ public class depositController extends sceneController {
         super.switchToLoginScene(event);
     }
 
-    @FXML
-    public void toTransfer(ActionEvent event) throws IOException {
+    public void toTransfer(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("transferScene.fxml"));
         Parent root = loader.load();
+        transferController transferCtrl = loader.getController();
+        transferCtrl.setCurrentAccount(CurrentAccount.account_number);
+        transferCtrl.setAccountSwitch();
         super.switchToTransferScene(event, root);
     }
 
