@@ -71,13 +71,9 @@ public class LoginFormController extends sceneController {
                     super.switchToAccScene(event, root);
                 }
             } catch (SQLException e) {
-                lblErrors.setText("Invalid login infomation.");
-            } catch (IOException e) {
-
-            }
-
+                lblErrors.setText("Invalid login information.");
+            } catch (IOException ignored) {}
         }
-
     }
 
     public void btnSignup(ActionEvent e) {

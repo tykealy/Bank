@@ -23,12 +23,13 @@ public class withdrawController extends sceneController {
     @FXML
     public TextField withdrawAmount;
     @FXML
-    public Label withdrawLabel;
+    public Label withdrawLabel, currentAccNo, remainingBalance;
     private double balance = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     int cAccNo;
     public void setCurrentAccount(int a) {
         cAccNo = a;
+        currentAccNo.setText(String.valueOf(cAccNo));
     }
 
     @FXML
@@ -52,7 +53,9 @@ public class withdrawController extends sceneController {
                     if (alert.showAndWait().get() == ButtonType.OK) {
                         ps.executeUpdate();
                         withdrawLabel.setTextFill(Color.GREEN);
+                        remainingBalance.setTextFill(Color.GREEN);
                         withdrawLabel.setText("Withdraw Successfully");
+                        remainingBalance.setText("Remaining Balance: $"+result);
                         withdrawAmount.setText("");
                         /* add to withdraw table */
                         ps = Database.set("insert into withdraw(user_id, account_no, amount, date, time) " +

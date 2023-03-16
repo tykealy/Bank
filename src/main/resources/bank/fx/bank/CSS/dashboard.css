@@ -63,7 +63,12 @@
     -fx-background-color:rgb(21,123,260);
 }
 
-.imge {
+.image {
+    -fx-background-color: rgb(21,123,241);
+}
 
- -fx-background-color: rgb(21,123,241);
+.deposit{
+   -fx-background-color:#ffff;
+   -fx-effect: dropshadow(three-pass-box , #DDDDDD ,5,0,0,6);
+   -fx-alignment:center;
 }
