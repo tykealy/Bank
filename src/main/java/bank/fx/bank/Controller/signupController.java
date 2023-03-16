@@ -9,13 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Random;
 
 import bank.fx.bank.User;
 import javafx.scene.paint.Color;
+
+import static bank.fx.bank.Account.accNoGenerator;
 
 public class signupController extends sceneController {
     @FXML
@@ -25,25 +26,11 @@ public class signupController extends sceneController {
     private TextField firstNameField, lastNameField, ageField, nationalityField, cardIdField, phoneField, emailField;
     @FXML
     private PasswordField passwordField, confirmPasswordField;
-    private final Random rand = new Random();
+    int accNo; String accName;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public void toLogin(ActionEvent event) throws IOException {
         super.switchToLoginScene(event);
-    }
-
-    public int accNoGenerator() throws SQLException {
-        int exist, val = rand.nextInt(90000000) + 10000000;
-        Database.grab("SELECT account_number FROM `bank_management`.`account`");
-        ResultSet rs = Database.grab("SELECT account_number FROM `bank_management`.`account`");
-        while (rs.next()) {
-            exist = rs.getInt("account_number");
-            if (exist == val) {
-                val = rand.nextInt(90000000) + 10000000;
-                rs.beforeFirst();
-            }
-        }
-        return val;
     }
 
     public void createAccount(User user) throws SQLException {
@@ -62,22 +49,20 @@ public class signupController extends sceneController {
                                 """;
         try {
             PreparedStatement stmt = Database.create(sqlString);
-            int accNo = accNoGenerator();
-            String accName = user.firstName + " " + user.lastName;
+            accNo = accNoGenerator();
+            accName = user.firstName + " " + user.lastName;
             stmt.setInt(1, accNo);
             stmt.setInt(2, id);
             stmt.setString(3, accName);
             stmt.setString(4, "Default");
             stmt.executeUpdate();
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
-            Parent root = loader.load();
-            popupWindowController controller = loader.getController();
-            controller.popupCard(root);
-            controller.setCardInfo(accNo, accName);
+//            FXMLLoader loader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
+//            Parent root = loader.load();
+//            popupWindowController controller = loader.getController();
+//            controller.popupCard(root);
+//            controller.setCardInfo(accNo, accName);
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -161,6 +146,13 @@ public class signupController extends sceneController {
                     user.create();
                     createAccount(user);
                     super.switchToLoginScene(event);
+                    System.out.println(accNo);
+                    System.out.println(accName);
+                    FXMLLoader loader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
+                    Parent root = loader.load();
+                    popupWindowController controller = loader.getController();
+                    controller.popupCard(root);
+                    controller.setCardInfo(accNo, accName);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

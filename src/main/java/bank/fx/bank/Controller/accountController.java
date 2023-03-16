@@ -47,6 +47,15 @@ public class accountController extends sceneController implements Initializable 
         cAccNo = a;
     }
 
+    @FXML
+    public void getAccountInfo(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
+        Parent root = loader.load();
+        popupWindowController controller = loader.getController();
+        controller.popupCard(root);
+        controller.setCardInfo(CurrentAccount.account_number, CurrentAccount.account_name);
+    }
+
     public void getCurrentUser() throws SQLException {
         accounts = CurrentUser.getAccounts();
         accountSwitch.getItems().clear();
@@ -242,5 +251,13 @@ public class accountController extends sceneController implements Initializable 
         withdrawController withdrawCtrl = loader.getController();
         withdrawCtrl.setCurrentAccount(CurrentAccount.account_number);
         super.switchToWithdrawScene(event, root);
+    }
+
+    public void createAccount(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("createAccountScene.fxml"));
+        Parent root = loader.load();
+        createAccountController createAccCtrl = loader.getController();
+        createAccCtrl.setUserId(CurrentUser.id);
+        super.switchToCreateAccountScene(event, root);
     }
 }
