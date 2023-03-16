@@ -25,8 +25,9 @@ public class transferController extends sceneController implements Initializable
     @FXML
     Label transferLabel, receiverLabel;
     @FXML
-    ChoiceBox <String>  accountTypeChoice;
-    ResultSet rs; PreparedStatement ps;
+    ChoiceBox<String> accountTypeChoice;
+    ResultSet rs;
+    PreparedStatement ps;
     int cAccNo;
     private double balance = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -34,10 +35,12 @@ public class transferController extends sceneController implements Initializable
     public void setCurrentAccount(int a) {
         cAccNo = a;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
     @FXML
     public void transfer() throws SQLException {
         String username;
@@ -51,7 +54,8 @@ public class transferController extends sceneController implements Initializable
             } else {
                 double amt = Double.parseDouble(transferAmount.getText());
                 int receiver = Integer.parseInt(receiverNo.getText());
-                rs = Database.get("select count(account_number), account_name from account where account_number=" + receiver);
+                rs = Database.get(
+                        "select count(account_number), account_name from account where account_number=" + receiver);
                 while (rs.next()) {
                     if (rs.getInt(1) == 0) {
                         receiverLabel.setTextFill(Color.RED);
@@ -92,10 +96,13 @@ public class transferController extends sceneController implements Initializable
                                 receiverNo.setText("");
                                 receiverLabel.setText("");
                                 /* add to transfer table */
-                                ps = Database.set("insert into transfer(user_id, account_no, message, amount, receiver_id, date, time) " +
-                                        "values (" + CurrentUser.id + ", " + cAccNo + ", \"" + transferMessage.getText() + "\", " + amt +
-                                        ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
-                                        LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
+                                ps = Database.set(
+                                        "insert into transfer(user_id, account_no, message, amount, receiver_id, date, time) "
+                                                +
+                                                "values (" + CurrentUser.id + ", " + cAccNo + ", \""
+                                                + transferMessage.getText() + "\", " + amt +
+                                                ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
+                                                LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                                 ps.executeUpdate();
                                 transferMessage.setText("");
                             }
@@ -123,7 +130,7 @@ public class transferController extends sceneController implements Initializable
         accountCtrl.setCurrentUser(cAccNo);
         accountCtrl.getCurrentUser();
         accountCtrl.getCurrentDeposit();
-        super.switchToAccScene(event,root);
+        super.switchToAccScene(event, root);
     }
 
     @FXML
@@ -137,7 +144,7 @@ public class transferController extends sceneController implements Initializable
 
     @FXML
     public void toWithdraw(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("depositScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("withdrawScene.fxml"));
         Parent root = loader.load();
         withdrawController withdrawCtrl = loader.getController();
         withdrawCtrl.setCurrentAccount(cAccNo);
@@ -150,7 +157,7 @@ public class transferController extends sceneController implements Initializable
     }
 
     @FXML
-    public void toPopupConfirmTransfer() throws IOException{
+    public void toPopupConfirmTransfer() throws IOException {
         double amount = Double.parseDouble(transferAmount.getText());
         String receiver = receiverNo.getText();
         String receiverName = "Sengheng";
@@ -158,7 +165,7 @@ public class transferController extends sceneController implements Initializable
         Parent root = loader.load();
         confirmTransferController controller = loader.getController();
         controller.popupConfirmTransfer(root);
-        controller.setTransferInfo(amount,receiver,receiverName);
+        controller.setTransferInfo(amount, receiver, receiverName);
     }
 
 }

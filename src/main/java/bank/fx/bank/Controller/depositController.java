@@ -30,6 +30,7 @@ public class depositController extends sceneController {
     private double result = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     int cAccNo;
+
     public void setCurrentAccount(int a) {
         cAccNo = a;
         currentAccNo.setText(String.valueOf(cAccNo));
@@ -59,7 +60,8 @@ public class depositController extends sceneController {
                     depositAmount.setText("");
                     // add to deposit table
                     ps = Database.set("insert into deposit(user_id, account_no, amount, date, time) " +
-                            "values ("+ CurrentUser.id + ", " + cAccNo + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
+                            "values (" + CurrentUser.id + ", " + cAccNo + ", " + amt + ", \"" + LocalDate.now()
+                            + "\", \"" +
                             LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                     ps.executeUpdate();
                 }
@@ -78,7 +80,7 @@ public class depositController extends sceneController {
         accountCtrl.setCurrentUser(cAccNo);
         accountCtrl.getCurrentUser();
         accountCtrl.getCurrentDeposit();
-        super.switchToAccScene(event,root);
+        super.switchToAccScene(event, root);
     }
 
     public void toWithdraw(ActionEvent event) throws IOException {
@@ -92,5 +94,12 @@ public class depositController extends sceneController {
     @FXML
     public void logout(ActionEvent event) throws IOException {
         super.switchToLoginScene(event);
+    }
+
+    @FXML
+    public void toTransfer(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("transferScene.fxml"));
+        Parent root = loader.load();
+        super.switchToTransferScene(event, root);
     }
 }

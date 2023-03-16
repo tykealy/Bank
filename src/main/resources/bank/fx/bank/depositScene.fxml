@@ -83,7 +83,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" text="Transfer">
+            <Button mnemonicParsing="false" onAction="#toTransfer" prefHeight="31.0" prefWidth="141.0" text="Transfer">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@images/transfer.png" />

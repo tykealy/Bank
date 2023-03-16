@@ -27,6 +27,7 @@ public class withdrawController extends sceneController {
     private double balance = 0;
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     int cAccNo;
+
     public void setCurrentAccount(int a) {
         cAccNo = a;
         currentAccNo.setText(String.valueOf(cAccNo));
@@ -55,11 +56,12 @@ public class withdrawController extends sceneController {
                         withdrawLabel.setTextFill(Color.GREEN);
                         remainingBalance.setTextFill(Color.GREEN);
                         withdrawLabel.setText("Withdraw Successfully");
-                        remainingBalance.setText("Remaining Balance: $"+result);
+                        remainingBalance.setText("Remaining Balance: $" + result);
                         withdrawAmount.setText("");
                         /* add to withdraw table */
                         ps = Database.set("insert into withdraw(user_id, account_no, amount, date, time) " +
-                                "values (" + CurrentUser.id + ", " + cAccNo + ", " + amt + ", \"" + LocalDate.now() + "\", \"" +
+                                "values (" + CurrentUser.id + ", " + cAccNo + ", " + amt + ", \"" + LocalDate.now()
+                                + "\", \"" +
                                 LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
                         ps.executeUpdate();
                     }
@@ -84,7 +86,7 @@ public class withdrawController extends sceneController {
         accountCtrl.setCurrentUser(cAccNo);
         accountCtrl.getCurrentUser();
         accountCtrl.getCurrentDeposit();
-        super.switchToAccScene(event,root);
+        super.switchToAccScene(event, root);
     }
 
     @FXML
@@ -99,5 +101,12 @@ public class withdrawController extends sceneController {
     @FXML
     public void logout(ActionEvent event) throws IOException {
         super.switchToLoginScene(event);
+    }
+
+    @FXML
+    public void toTransfer(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("transferScene.fxml"));
+        Parent root = loader.load();
+        super.switchToTransferScene(event, root);
     }
 }

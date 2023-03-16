@@ -80,7 +80,8 @@ public class accountController extends sceneController implements Initializable 
             transactionType.setValue("Deposit");
             accountSwitch.getItems().addAll(accountNumbers);
             accountSwitch.setValue(String.valueOf(CurrentAccount.account_number));
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     @FXML
@@ -259,5 +260,11 @@ public class accountController extends sceneController implements Initializable 
         createAccountController createAccCtrl = loader.getController();
         createAccCtrl.setUserId(CurrentUser.id);
         super.switchToCreateAccountScene(event, root);
+    }
+
+    public void toTransfer(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("transferScene.fxml"));
+        Parent root = loader.load();
+        super.switchToTransferScene(event, root);
     }
 }
