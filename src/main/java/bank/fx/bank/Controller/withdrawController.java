@@ -102,10 +102,12 @@ public class withdrawController extends sceneController {
         super.switchToLoginScene(event);
     }
 
-    @FXML
-    public void toTransfer(ActionEvent event) throws IOException {
+    public void toTransfer(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("transferScene.fxml"));
         Parent root = loader.load();
+        transferController transferCtrl = loader.getController();
+        transferCtrl.setCurrentAccount(CurrentAccount.account_number);
+        transferCtrl.setAccountSwitch();
         super.switchToTransferScene(event, root);
     }
 
