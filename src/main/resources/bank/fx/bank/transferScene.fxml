@@ -20,7 +20,7 @@
     <children>
         <Pane layoutX="301.0" layoutY="24.0" prefHeight="631.0" prefWidth="527.0" styleClass="title_container" stylesheets="@CSS/dashboard.css">
             <children>
-                <ChoiceBox fx:id="accountTypeChoice" layoutX="101.0" layoutY="170.0" prefHeight="39.0" prefWidth="344.0" onAction="#getAccount"/>
+                <ChoiceBox fx:id="accountTypeChoice" layoutX="101.0" layoutY="170.0" onAction="#getAccount" prefHeight="39.0" prefWidth="344.0" />
                 <TextField fx:id="receiverNo" layoutX="107.0" layoutY="242.0" prefHeight="39.0" prefWidth="332.0" promptText="Enter receiver account number" stylesheets="@CSS/dashboard.css" />
                 <TextField fx:id="transferAmount" layoutX="108.0" layoutY="303.0" prefHeight="39.0" prefWidth="332.0" promptText="Amount" />
                 <TextField fx:id="transferMessage" layoutX="108.0" layoutY="367.0" prefHeight="39.0" prefWidth="332.0" promptText="Message (Optional)" />
@@ -35,10 +35,10 @@
                     </stylesheets>
                 </Label>
             <Label fx:id="receiverLabel" layoutX="113.0" layoutY="281.0" prefHeight="16.0" prefWidth="320.0" />
-            <Label fx:id="transferLabel" layoutX="113.0" layoutY="342.0" prefHeight="16.0" prefWidth="320.0" />
+            <Label fx:id="transferLabel" layoutX="113.0" layoutY="412.0" prefHeight="16.0" prefWidth="320.0" />
             </children>
         </Pane>
-        <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
+        <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
             <effect>
                 <DropShadow blurType="ONE_PASS_BOX" height="94.02" offsetX="1.0" radius="46.787499999999994" spread="0.01" width="95.13">
                     <color>
