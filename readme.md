@@ -122,7 +122,7 @@ INSERT INTO `bank_management`.`transfer` (`transfer_id`,`user_id`,`message`,`amo
 create a table name "receive"
 
 ```mysql
-create table receive {
+create table receive (
 id int auto_increment,
 account_no int,
 amount double not null default 0,
@@ -131,7 +131,7 @@ sender varchar(255),
 date date,
 time time,
 primary key(id) 
-};
+);
 ```
 
 run the project to see if the input data appear in the terminal;
