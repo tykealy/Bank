@@ -20,16 +20,12 @@
     <children>
         <Pane layoutX="301.0" layoutY="24.0" prefHeight="631.0" prefWidth="527.0" styleClass="title_container" stylesheets="@CSS/dashboard.css">
             <children>
-                <ChoiceBox fx:id="accountTypeChoice" layoutX="108.0" layoutY="169.0" prefHeight="39.0" prefWidth="344.0" />
+                <ChoiceBox fx:id="accountTypeChoice" layoutX="101.0" layoutY="170.0" prefHeight="39.0" prefWidth="344.0" onAction="#getAccount"/>
                 <TextField fx:id="receiverNo" layoutX="107.0" layoutY="242.0" prefHeight="39.0" prefWidth="332.0" promptText="Enter receiver account number" stylesheets="@CSS/dashboard.css" />
                 <TextField fx:id="transferAmount" layoutX="108.0" layoutY="303.0" prefHeight="39.0" prefWidth="332.0" promptText="Amount" />
                 <TextField fx:id="transferMessage" layoutX="108.0" layoutY="367.0" prefHeight="39.0" prefWidth="332.0" promptText="Message (Optional)" />
-                <Button fx:id="transferButton" layoutX="107.0" layoutY="456.0" mnemonicParsing="false" onAction="#toPopupConfirmTransfer" prefHeight="31.0" prefWidth="332.0" styleClass="text_logout" stylesheets="@CSS/dashboard.css" text="Transfer">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Label alignment="CENTER" layoutX="128.0" layoutY="71.0" prefHeight="38.0" prefWidth="291.0" styleClass="left_container" text="Transfer">
+                <Button layoutX="107.0" layoutY="456.0" mnemonicParsing="false" onAction="#transfer" prefHeight="32.0" prefWidth="332.0" styleClass="text_logout" stylesheets="@CSS/dashboard.css" text="Transfer" textFill="WHITE" />
+                <Label alignment="CENTER" layoutX="26.0" layoutY="46.0" prefHeight="52.0" prefWidth="476.0" styleClass="left_container" text="Transfer">
                     <font>
                         <Font name="System Bold" size="27.0" />
                     </font>
@@ -38,9 +34,11 @@
                         <URL value="@CSS/dashboard.css" />
                     </stylesheets>
                 </Label>
+            <Label fx:id="receiverLabel" layoutX="113.0" layoutY="281.0" prefHeight="16.0" prefWidth="320.0" />
+            <Label fx:id="transferLabel" layoutX="113.0" layoutY="342.0" prefHeight="16.0" prefWidth="320.0" />
             </children>
         </Pane>
-        <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
+        <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
             <effect>
                 <DropShadow blurType="ONE_PASS_BOX" height="94.02" offsetX="1.0" radius="46.787499999999994" spread="0.01" width="95.13">
                     <color>
@@ -109,7 +107,8 @@
                                     </graphic>
                                 </Button>
                                 <Line endX="38.62620544433594" endY="-4.3114027903357055E-6" startX="-100.0" />
-                                <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Logout" textAlignment="RIGHT" textFill="WHITE" />
+                                <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toProfile" styleClass="text_logout" text="Profile" textAlignment="RIGHT" textFill="WHITE" />
+                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Logout" textAlignment="RIGHT" textFill="WHITE" />
                             </children>
                         </VBox>
                     </children>

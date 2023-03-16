@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="512.0" prefWidth="356.0" style="-fx-background-color: #eeee;" styleClass="left_container" stylesheets="@CSS/dashbaord.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.confirmTransferController">
+<AnchorPane fx:id="anchorPane" prefHeight="512.0" prefWidth="356.0" style="-fx-background-color: #eeee;" styleClass="left_container" stylesheets="@CSS/dashbaord.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.confirmTransferController">
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Cancel" />
-        <Button layoutX="97.0" layoutY="425.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="166.0" text="Confirm" />
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancel" style="-fx-cursor: hand;" styleClass="deposit, confirmBtn" stylesheets="@CSS/dashboard.css" text="Cancel" />
+        <Button fx:id="confirmBtn" layoutX="97.0" layoutY="425.0" mnemonicParsing="false" onAction="#confirm" prefHeight="31.0" prefWidth="166.0" style="-fx-cursor: hand;" styleClass="deposit, confirmBtn" stylesheets="@CSS/dashboard.css" text="Confirm" />
         <ImageView fitHeight="90.0" fitWidth="133.0" layoutX="133.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/transfer.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="97.0" layoutY="155.0" text="You are about to transfer">
+        <Label alignment="CENTER" layoutX="83.0" layoutY="146.0" text="You are about to transfer">
             <font>
                 <Font size="15.0" />
             </font>
@@ -38,7 +38,7 @@
                 <Font size="15.0" />
             </font>
         </Label>
-        <Label fx:id="receiverConfirm" alignment="CENTER" layoutX="101.0" layoutY="312.0" prefHeight="31.0" prefWidth="158.0" styleClass="left_container" stylesheets="@CSS/dashbaord.css">
+        <Label fx:id="receiverConfirm" alignment="CENTER" layoutX="41.0" layoutY="312.0" prefHeight="31.0" prefWidth="289.0" styleClass="left_container" stylesheets="@CSS/dashbaord.css">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>

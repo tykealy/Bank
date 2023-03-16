@@ -4,22 +4,20 @@ import bank.fx.bank.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ResourceBundle;
+import java.util.ArrayList;
 
-public class transferController extends sceneController implements Initializable {
+public class transferController extends sceneController {
     @FXML
     TextField transferAmount, receiverNo, transferMessage;
     @FXML
@@ -28,22 +26,47 @@ public class transferController extends sceneController implements Initializable
     ChoiceBox<String> accountTypeChoice;
     ResultSet rs;
     PreparedStatement ps;
-    int cAccNo;
+    int cAccNo, receiver;
     private double balance = 0;
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    boolean confirmation;
+    String username;
+    ArrayList<Account> accounts;
 
     public void setCurrentAccount(int a) {
         cAccNo = a;
+        System.out.println(cAccNo);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setAccountSwitch() throws SQLException {
+        accounts = CurrentUser.getAccounts();
+        accountTypeChoice.getItems().clear();
+        ArrayList<String> accountNumbers = new ArrayList<>();
+        for (Account account : accounts) {
+            accountNumbers.add(String.valueOf(account.account_number));
+        }
+        try {
+            accountTypeChoice.getItems().addAll(accountNumbers);
+            accountTypeChoice.setValue(String.valueOf(CurrentAccount.account_number));
+        } catch (NullPointerException e) {
+            System.out.println("Don't mind me");
+        }
+    }
 
+    @FXML
+    private void getAccount(ActionEvent event) {
+        int currentAccNo = 0;
+        try {
+            currentAccNo = Integer.parseInt(accountTypeChoice.getValue());
+        } catch (NumberFormatException ignored) {
+        }
+        if (currentAccNo != 0) {
+            CurrentAccount.setCurrentAccount(currentAccNo);
+        }
+        System.out.println(CurrentAccount.account_number);
     }
 
     @FXML
     public void transfer() throws SQLException {
-        String username;
         try {
             if (transferAmount.getText().equals("")) {
                 transferLabel.setTextFill(Color.RED);
@@ -53,7 +76,7 @@ public class transferController extends sceneController implements Initializable
                 receiverLabel.setText("Specify the receiver");
             } else {
                 double amt = Double.parseDouble(transferAmount.getText());
-                int receiver = Integer.parseInt(receiverNo.getText());
+                receiver = Integer.parseInt(receiverNo.getText());
                 rs = Database.get(
                         "select count(account_number), account_name from account where account_number=" + receiver);
                 while (rs.next()) {
@@ -61,24 +84,32 @@ public class transferController extends sceneController implements Initializable
                         receiverLabel.setTextFill(Color.RED);
                         receiverLabel.setText("User does not exist");
                         receiverNo.setText("");
-                    } else if (receiver == cAccNo) {
+                    } else if (receiver == CurrentAccount.account_number) {
                         receiverLabel.setTextFill(Color.RED);
                         receiverLabel.setText("Current Account");
                         receiverNo.setText("");
                     } else {
                         /* remove balance */
                         username = rs.getString(2);
-                        rs = Database.get("select balance from account where account_number=" + cAccNo);
+                        rs = Database.get("select balance from account where account_number=" + CurrentAccount.account_number);
                         while (rs.next()) {
                             balance = rs.getDouble(1);
                         }
                         if (amt <= balance) {
                             double result = balance - amt;
-                            ps = Database.set("update account set balance=? where account_number=" + cAccNo);
+                            ps = Database.set("update account set balance=? where account_number=" + CurrentAccount.account_number);
                             ps.setDouble(1, result);
-                            alert.setHeaderText("Transfer Amount: $" + amt + "\nReceiver Name: " + username);
+                            try {
+                                FXMLLoader loader = new FXMLLoader(Main.class.getResource("confirmTransferScene.fxml"));
+                                Parent root = loader.load();
+                                confirmTransferController controller = loader.getController();
+                                controller.popupConfirmTransfer(root, amt, receiver, username);
+                                confirmation = controller.getCheck();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
 
-                            if (alert.showAndWait().get() == ButtonType.OK) {
+                            if (confirmation) {
                                 ps.executeUpdate();
 
                                 /* add to receiver */
@@ -99,7 +130,7 @@ public class transferController extends sceneController implements Initializable
                                 ps = Database.set(
                                         "insert into transfer(user_id, account_no, message, amount, receiver_id, date, time) "
                                                 +
-                                                "values (" + CurrentUser.id + ", " + cAccNo + ", \""
+                                                "values (" + CurrentUser.id + ", " + CurrentAccount.account_number + ", \""
                                                 + transferMessage.getText() + "\", " + amt +
                                                 ", " + receiver + ", \"" + LocalDate.now() + "\", \"" +
                                                 LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "\")");
@@ -127,7 +158,7 @@ public class transferController extends sceneController implements Initializable
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("accountScene.fxml"));
         Parent root = loader.load();
         accountController accountCtrl = loader.getController();
-        accountCtrl.setCurrentUser(cAccNo);
+        accountCtrl.setCurrentUser(CurrentAccount.account_number);
         accountCtrl.getCurrentUser();
         accountCtrl.getCurrentDeposit();
         super.switchToAccScene(event, root);
@@ -147,7 +178,7 @@ public class transferController extends sceneController implements Initializable
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("withdrawScene.fxml"));
         Parent root = loader.load();
         withdrawController withdrawCtrl = loader.getController();
-        withdrawCtrl.setCurrentAccount(cAccNo);
+        withdrawCtrl.setCurrentAccount(CurrentAccount.account_number);
         super.switchToWithdrawScene(event, root);
     }
 
@@ -156,16 +187,6 @@ public class transferController extends sceneController implements Initializable
         super.switchToLoginScene(event);
     }
 
-    @FXML
-    public void toPopupConfirmTransfer() throws IOException {
-        double amount = Double.parseDouble(transferAmount.getText());
-        String receiver = receiverNo.getText();
-        String receiverName = "Sengheng";
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("confirmTransferScene.fxml"));
-        Parent root = loader.load();
-        confirmTransferController controller = loader.getController();
-        controller.popupConfirmTransfer(root);
-        controller.setTransferInfo(amount, receiver, receiverName);
+    public void toProfile(ActionEvent event) {
     }
-
 }
