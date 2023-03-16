@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 public class CurrentAccount {
     public static int account_number;
-    public static String account_name, account_type;
+    public static String account_name, account_type, phone;
     public static double balance;
 
     public static void setCurrentAccount(int account_number) {
@@ -15,6 +15,7 @@ public class CurrentAccount {
             CurrentAccount.account_name = rs.getString("account_name");
             CurrentAccount.account_type = rs.getString("account_type");
             CurrentAccount.balance = rs.getDouble("balance");
+            CurrentAccount.phone = rs.getString("phone");
         } catch (Exception e) {
             System.out.println("error");
         }

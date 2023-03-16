@@ -75,6 +75,13 @@ public class sceneController {
         stage.show();
     }
 
+    protected void toProfile(ActionEvent event, Parent root) {
+        stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void exit(ActionEvent event, Pane pane) {
         stage = (Stage) pane.getScene().getWindow();
         stage.close();

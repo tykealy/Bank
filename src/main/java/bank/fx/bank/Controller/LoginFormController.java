@@ -50,7 +50,6 @@ public class LoginFormController extends sceneController {
             try {
                 ResultSet rs = Database
                         .get("select user_id from account where account_number =  '" + account_number + "';");
-
                 rs.absolute(1);
                 int user_id = rs.getInt(1);
                 rs = Database.get(
@@ -72,7 +71,8 @@ public class LoginFormController extends sceneController {
                 }
             } catch (SQLException e) {
                 lblErrors.setText("Invalid login information.");
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
     }
 

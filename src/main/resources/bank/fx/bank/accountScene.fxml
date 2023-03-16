@@ -63,7 +63,7 @@
                </graphic>
             </Button>
             <Line endX="38.62620544433594" endY="-4.3114027903357055E-6" startX="-100.0" />
-            <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Profile" textAlignment="RIGHT" textFill="WHITE" />
+            <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#profile" styleClass="text_logout" text="Profile" textAlignment="RIGHT" textFill="WHITE" />
             <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" styleClass="text_logout" text="Logout" textAlignment="RIGHT" textFill="WHITE" />
          </VBox>
       </AnchorPane>

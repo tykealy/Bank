@@ -267,4 +267,10 @@ public class accountController extends sceneController implements Initializable 
         Parent root = loader.load();
         super.switchToTransferScene(event, root);
     }
+
+    public void profile(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("profileScene.fxml"));
+        Parent root = loader.load();
+        super.switchToTransferScene(event, root);
+    }
 }
