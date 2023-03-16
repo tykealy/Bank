@@ -33,7 +33,7 @@ public class transferController extends sceneController {
 
     public void setCurrentAccount(int a) {
         cAccNo = a;
-        System.out.println(cAccNo);
+//        System.out.println(cAccNo);
     }
 
     public void setAccountSwitch() throws SQLException {
@@ -61,7 +61,7 @@ public class transferController extends sceneController {
         if (currentAccNo != 0) {
             CurrentAccount.setCurrentAccount(currentAccNo);
         }
-        System.out.println(CurrentAccount.account_number);
+//        System.out.println(CurrentAccount.account_number);
     }
 
     @FXML

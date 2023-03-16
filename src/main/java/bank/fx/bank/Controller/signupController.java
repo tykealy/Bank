@@ -147,8 +147,8 @@ public class signupController extends sceneController {
                     user.create();
                     createAccount(user);
                     super.switchToLoginScene(event);
-                    System.out.println(accNo);
-                    System.out.println(accName);
+//                    System.out.println(accNo);
+//                    System.out.println(accName);
                     FXMLLoader loader = new FXMLLoader(Main.class.getResource("CardScene.fxml"));
                     Parent root = loader.load();
                     popupWindowController controller = loader.getController();

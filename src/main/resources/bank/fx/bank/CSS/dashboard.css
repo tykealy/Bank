@@ -70,6 +70,11 @@
     -fx-background-color:rgb(21,123,260);
 }
 
+.mainBtn:hover {
+    -fx-cursor: hand;
+    -fx-padding: 8;
+}
+
 .image {
     -fx-background-color: rgb(21,123,241);
 }
