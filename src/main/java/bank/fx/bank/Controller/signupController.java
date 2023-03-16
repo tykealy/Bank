@@ -85,12 +85,12 @@ public class signupController extends sceneController {
         errorPassword.setText("");
         errorPasswordConfirm.setText("");
         try {
-            if (Integer.parseInt(ageField.getText()) < 18) {
+            if (Integer.parseInt(ageField.getText()) < 18 || Integer.parseInt(ageField.getText()) >= 100) {
                 errorAge.setTextFill(Color.RED);
                 if (ageField.getText().isBlank()) {
                     errorAge.setText("Please fill in your age");
                 } else {
-                    errorAge.setText("You must be over 18");
+                    errorAge.setText("Invalid age input");
                 }
                 ageField.setText("");
             }
