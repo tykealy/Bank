@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
@@ -19,88 +18,32 @@
 
 <AnchorPane prefHeight="510.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.fx.bank.Controller.createAccountController">
    <children>
-      <Pane layoutX="284.0" layoutY="53.0" prefHeight="600.0" prefWidth="546.0" styleClass="left_container" stylesheets="@CSS/dashboard.css">
+      <Pane layoutX="285.0" layoutY="101.0" prefHeight="453.0" prefWidth="546.0" styleClass="left_container" stylesheets="@CSS/dashboard.css">
          <children>
             <Button alignment="CENTER" layoutX="35.0" layoutY="30.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="476.0" styleClass="deposit" stylesheets="@CSS/dashboard.css" text="Create Account">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Pane layoutX="39.0" layoutY="112.0" prefHeight="274.0" prefWidth="354.0" stylesheets="@CSS/dashboard.css">
+            <Pane layoutX="96.0" layoutY="131.0" prefHeight="274.0" prefWidth="354.0" stylesheets="@CSS/dashboard.css">
                <children>
-                  <Label fx:id="depositLabel" layoutX="93.0" layoutY="143.0" prefHeight="17.0" prefWidth="149.0" />
-                  <TextField fx:id="firstNameField" layoutX="13.0" layoutY="19.0" prefHeight="25.0" prefWidth="137.0" promptText="Firstname" />
-                  <TextField fx:id="lastNameField" layoutX="169.0" layoutY="19.0" prefHeight="25.0" prefWidth="137.0" promptText="Lastname" />
-                  <TextField fx:id="nationalityField" layoutX="169.0" layoutY="60.0" prefHeight="25.0" prefWidth="137.0" promptText="Nationality" />
-                  <TextField fx:id="cardIdField" layoutX="13.0" layoutY="99.0" prefHeight="25.0" prefWidth="137.0" promptText="Card ID" />
-                  <PasswordField fx:id="passwordField" layoutX="14.0" layoutY="180.0" prefHeight="25.0" prefWidth="292.0" promptText="Password should be more than 8 characters">
+                  <Label fx:id="errorAccName" layoutX="33.0" layoutY="75.0" prefHeight="17.0" prefWidth="292.0" textFill="RED" />
+                  <TextField fx:id="accNameField" layoutX="33.0" layoutY="35.0" prefHeight="32.0" prefWidth="292.0" promptText="Account Name" />
+                  <ChoiceBox fx:id="accountType" layoutX="175.0" layoutY="109.0" prefWidth="150.0" />
+                  <Label layoutX="34.0" layoutY="109.0" prefHeight="24.0" prefWidth="130.0" text="Account Type:">
                      <font>
-                        <Font size="12.0" />
-                     </font>
-                  </PasswordField>
-                  <TextField fx:id="ageField" layoutX="13.0" layoutY="60.0" prefHeight="25.0" prefWidth="137.0" promptText="Age" />
-                  <PasswordField fx:id="confirmPasswordField" layoutX="14.0" layoutY="222.0" prefHeight="25.0" prefWidth="292.0" promptText="Re-enter your password">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </PasswordField>
-                  <TextField fx:id="phoneField" layoutX="169.0" layoutY="99.0" prefHeight="25.0" prefWidth="137.0" promptText="Phone No." />
-                  <TextField fx:id="emailField" layoutX="13.0" layoutY="139.0" prefHeight="25.0" prefWidth="292.0" promptText="Email" />
-                  <Label fx:id="errorFirstName" layoutX="14.0" layoutY="44.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
+                        <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="errorLastname" layoutX="169.0" layoutY="44.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorAge" layoutX="14.0" layoutY="85.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorNationality" layoutX="169.0" layoutY="85.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorCardId" layoutX="14.0" layoutY="124.0" prefHeight="12.0" prefWidth="137.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorPhone" layoutX="169.0" layoutY="124.0" prefHeight="12.0" prefWidth="170.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorEmail" layoutX="14.0" layoutY="164.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorPasswordConfirm" layoutX="14.0" layoutY="247.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="errorPassword" layoutX="14.0" layoutY="205.0" prefHeight="12.0" prefWidth="292.0" styleClass="error-text" stylesheets="@CSS/signup.css">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
+                  <Button layoutX="29.0" layoutY="200.0" mnemonicParsing="false" onAction="#create" prefHeight="32.0" prefWidth="282.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Create" textFill="WHITE" />
                </children>
             </Pane>
-            <Button layoutX="58.0" layoutY="386.0" mnemonicParsing="false" onAction="#create" prefHeight="32.0" prefWidth="282.0" styleClass="submit-btn" stylesheets="@CSS/signup.css" text="Create" textFill="WHITE" />
-            <ChoiceBox fx:id="accountType" layoutX="361.0" layoutY="132.0" prefWidth="150.0" />
          </children>
          <effect>
             <Glow />
          </effect>
       </Pane>
-      <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
+      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="234.0" style="-fx-background-color: white; -fx-background-radius: 10, 10, 10, 10;" stylesheets="@CSS/dashboard.css">
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" height="94.02" offsetX="1.0" radius="46.787499999999994" spread="0.01" width="95.13">
                <color>
